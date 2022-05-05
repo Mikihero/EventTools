@@ -11,4 +11,4 @@ This plugin is property of Miki_hero, using it is obviously allowed, if you wish
 **Other Features:**  
 - Whenever roundlock is toggled an adminchat message is sent.  
   
-**Pretty much everything you can imagine about the above commands and features can be changed in the config file for your server.**
+**Pretty much everything you can imagine about the above commands and features can be changed in the config file of your server.**
