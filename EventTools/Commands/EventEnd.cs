@@ -24,7 +24,7 @@ namespace EventTools.Commands
         {
             foreach(Player player in Player.List)
             {
-                player.Teleport(Door.Get(DoorType.PrisonDoor));
+                player.Teleport(Door.Get(DoorType.Scp106Bottom));
                 player.IsGodModeEnabled = false;
             }
             Round.IsLocked = false;

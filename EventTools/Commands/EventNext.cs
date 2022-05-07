@@ -26,7 +26,7 @@ namespace EventTools.Commands
             }
             else
             {
-                string message = string.Join("", arguments);
+                string message = string.Join(" ", arguments);
                 string MessageStart = EventTools.Instance.Config.EventNextMessage1;
                 string MessageEnd = EventTools.Instance.Config.EventNextMessage2;
                 Map.Broadcast(10, MessageStart + message + MessageEnd);
