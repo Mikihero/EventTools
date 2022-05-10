@@ -66,5 +66,11 @@ namespace EventTools
 
         [Description("The closing color tag so that the EventNext broadcast can be colored")]
         public string EventNowMessage2 { get; set; } = "</color></b></size>";
+
+        [Description("The message sent in AdminChat as a reminder that roundlock is still enabled.")]
+        public string RLStillEnabled { get; set; } = "[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>";
+
+        [Description("The amount of time (in miliseconds) after which the 'rounlock is still enabled reminder' will be sent.")]
+        public int RLReminderTime { get; set; } = 300000;
     } 
 }
