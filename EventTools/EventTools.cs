@@ -11,24 +11,24 @@ namespace EventTools
         private static Timer aTimer;
         private static Timer aTimer2;
 
-        private static readonly Lazy<EventTools> LazyInstance = new Lazy<EventTools>(() => new EventTools());
-        public static EventTools Instance => LazyInstance.Value;
-
-        public override PluginPriority Priority { get; } = PluginPriority.Medium;
-
-
-        private EventTools()
-        {
-
-        }
+        public static EventTools Instance;
+        public override Version RequiredExiledVersion => new Version(5, 2, 1);
 
         public static int tester1 = 2;
         public static int tester2 = 2;
+
+        public override void OnEnabled()
+        {
+            Instance = this;
+            SetTimer();
+            SetTimer2();
+        }
+
         public static void RoundLockAdminChat(Object sender, ElapsedEventArgs e)
         {
             if (Round.IsLocked == true)
             {
-                string message = EventTools.Instance.Config.RLEnabledMessage;
+                string message = Instance.Config.RLEnabledMessage;
                 tester1 = 1;
                 if (tester2 == 2)
                 {
@@ -59,7 +59,7 @@ namespace EventTools
             }
             else
             {
-                string message = EventTools.Instance.Config.RLDisabledMessage;
+                string message = Instance.Config.RLDisabledMessage;
                 tester1 = 0;
                 if (tester2 == 2)
                 {
@@ -92,7 +92,7 @@ namespace EventTools
 
         public static void RoundLockAdminChatReminder(Object sender, ElapsedEventArgs e)
         {
-            string message = EventTools.Instance.Config.RLStillEnabled;
+            string message = Instance.Config.RLStillEnabled;
             if (Round.IsLocked == true)
             {
                 foreach (Player player in Player.List)
@@ -115,17 +115,11 @@ namespace EventTools
 
         private static void SetTimer2()
         {
-            int time = EventTools.Instance.Config.RLReminderTime;
+            int time = Instance.Config.RLReminderTime;
             aTimer2 = new Timer(time);
             aTimer2.Elapsed += RoundLockAdminChatReminder;
             aTimer2.AutoReset = true;
             aTimer2.Enabled = true;
-        }
-
-        public override void OnEnabled()
-        {
-            SetTimer();
-            SetTimer2();
         }
     }
 }

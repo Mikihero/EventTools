@@ -72,5 +72,11 @@ namespace EventTools
 
         [Description("The amount of time (in miliseconds) after which the 'rounlock is still enabled reminder' will be sent.")]
         public int RLReminderTime { get; set; } = 300000;
-    } 
+
+        [Description("The broadcast to be sent whenever the lottery command is used. [NUMBER] will be replaced with the rolled number.")]
+        public string LotteryBC { get; set; } = "<color=#b00b69><b><size=60>[NUMBER]</size></b></color>";
+
+        [Description("The closing tags for the above config path.")]
+        public string LotteryBCClosingTags { get; set; } = "";
+    }
 }
