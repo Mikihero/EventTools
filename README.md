@@ -11,21 +11,21 @@ This plugin is property of Miki_hero, using it is obviously allowed, if you wish
 - **EventNow** - Sends a broadcast informing about an event happening this round.  
 - **Lottery** - Spins the lottery wheel displaying the rolled number on the screen and doing something depending on the number.
 **All the numbers:**
-1-3 - Starts/Stops the warhead.  
-4-5 - Spawns a random healing item on everyone's head.  
-6-10 - Turns off lights for 20 seconds.  
-11-14 - Applies a random effect to a random player for 3 seconds.  
-15-16 - Spawns a containment engineer keycard in a random room.  
-17-20 - Nothing for now (I'm out of ideas xD).  
-21-24 - Forces a CI spawn.  
-25-26 - Also nothing.  
-27-30 - Forces an MTF spawn.  
-31-34 - Teleports a random player to Class D spawn or Nuke's armory depending on LCZ's decontamination status.  
-35-36 - Closes and locks a random door.    
-37-40 - Teleports a random player to Gate A/Gate B.  
-41-44 - Locks all the doors for 10 seconds in a pattern of: 10s locked, 10s unlocked. Doors are closed 3 times.  
-45-46 - Teleports everyone to a random room.  
-47-50 - Deep, and I mean **Deep** fakes a cassie announcement (you can still get a christmast MTF tho). I've spent a lot of time on this one and I'm proud of it.  
+**1-3** - Starts/Stops the warhead.  
+**4-5** - Spawns a random healing item on everyone's head.  
+**6-10** - Turns off lights for 20 seconds.  
+**11-14** - Applies a random effect to a random player for 3 seconds.  
+**15-16** - Spawns a containment engineer keycard in a random room.  
+**17-20** - Nothing for now (I'm out of ideas xD).  
+**21-24** - Forces a CI spawn.  
+**25-26** - Also nothing.  
+**27-30** - Forces an MTF spawn.  
+**31-34** - Teleports a random player to Class D spawn or Nuke's armory depending on LCZ's decontamination status.  
+**35-36** - Closes and locks a random door.    
+**37-40** - Teleports a random player to Gate A/Gate B.  
+**41-44** - Locks all the doors for 10 seconds in a pattern of: 10s locked, 10s unlocked. Doors are closed 3 times.  
+**45-46** - Teleports everyone to a random room.  
+**47-50** - Deep, and I mean **Deep** fakes a cassie announcement (you can still get a christmast MTF tho). I've spent a lot of time on this one and I'm proud of it.  
   
 **Other Features:**  
 - Whenever roundlock is toggled an adminchat message is sent.  
