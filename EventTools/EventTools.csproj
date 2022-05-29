@@ -103,15 +103,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Deathmatch.cs" />
     <Compile Include="Commands\EventCountdown.cs" />
     <Compile Include="Commands\EventEnd.cs" />
     <Compile Include="Commands\EventNow.cs" />
     <Compile Include="Commands\EventNext.cs" />
     <Compile Include="Commands\EventStart.cs" />
+    <Compile Include="Commands\EventWin.cs" />
     <Compile Include="Commands\LockZone.cs" />
     <Compile Include="Commands\Lottery.cs" />
     <Compile Include="Config.cs" />
-    <Compile Include="EventTools.cs" />
+    <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

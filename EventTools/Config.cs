@@ -78,5 +78,8 @@ namespace EventTools
 
         [Description("The closing tags for the above config path.")]
         public string LotteryBCClosingTags { get; set; } = "";
+
+        [Description("Whether or not the EventWin command should forceclass everyone except you and your target to spectator.")]
+        public bool EWForceClassEveryoneToSpectator { get; set; } = false;
     }
 }
