@@ -16,7 +16,7 @@ namespace EventTools.Commands
     {
         public string Command => "EventEnd";
 
-        public string[] Aliases { get; set; } = { "Eventfinish"};
+        public string[] Aliases { get; set; } = { "Eventfinish", "eend"};
 
         public string Description => "Finishes the event with a bang!";
 
@@ -29,7 +29,7 @@ namespace EventTools.Commands
             }
             Round.IsLocked = false;
             Warhead.Detonate();
-            string responseMessage = EventTools.Instance.Config.EventEndResponseMessage;
+            string responseMessage = Plugin.Instance.Config.EventEndResponseMessage;
             response = "Everyone is sad because the event is over (and also they exploded!).";
             return true;
         }

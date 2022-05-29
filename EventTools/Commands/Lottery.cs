@@ -21,8 +21,8 @@ namespace EventTools.Commands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             System.Random Rd = new System.Random();
-            int lotteryTicket = Rd.Next(15, 16);
-            string message = EventTools.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
+            int lotteryTicket = Rd.Next(1, 51);
+            string message = Plugin.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
             Log.Info("Herobrine.");
             switch (lotteryTicket)
             {

@@ -13,7 +13,7 @@ namespace EventTools.Commands
     {
         public string Command => "EventNext";
 
-        public string[] Aliases { get; set; } = { };
+        public string[] Aliases { get; set; } = { "enext" };
 
         public string Description => "Sends an announcement about an event happening next round.";
 
@@ -27,8 +27,8 @@ namespace EventTools.Commands
             else
             {
                 string message = string.Join(" ", arguments);
-                string MessageStart = EventTools.Instance.Config.EventNextMessage1;
-                string MessageEnd = EventTools.Instance.Config.EventNextMessage2;
+                string MessageStart = Plugin.Instance.Config.EventNextMessage1;
+                string MessageEnd = Plugin.Instance.Config.EventNextMessage2;
                 Map.Broadcast(10, MessageStart + message + MessageEnd);
                 response = "Broadcast sent!";
                 return true;

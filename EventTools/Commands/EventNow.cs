@@ -13,7 +13,7 @@ namespace EventTools.Commands
     {
         public string Command => "EventNow";
 
-        public string[] Aliases { get; set; } = { };
+        public string[] Aliases { get; set; } = { "enow" };
 
         public string Description => "Sends an announcement about an event happening this round.";
 
@@ -27,8 +27,8 @@ namespace EventTools.Commands
             else
             {
                 string message = string.Join(" ", arguments);
-                string MessageStart = EventTools.Instance.Config.EventNowMessage1;
-                string MessageEnd = EventTools.Instance.Config.EventNowMessage2;
+                string MessageStart = Plugin.Instance.Config.EventNowMessage1;
+                string MessageEnd = Plugin.Instance.Config.EventNowMessage2;
                 Map.Broadcast(20, MessageStart + message + MessageEnd);
                 response = "Broadcast sent!";
                 return true;

@@ -14,7 +14,7 @@ namespace EventTools.Commands
     {
         public string Command { get; set; } = "lockzone";
 
-        public string[] Aliases { get; set; } = { };
+        public string[] Aliases { get; set; } = { "zonelock", "lz", "zl" };
 
         public string Description { get; set; } = "Locks all the doors in a specified zone";
 

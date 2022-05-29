@@ -13,15 +13,15 @@ namespace EventTools.Commands
     {
         public string Command { get; } = "EventCountdown";
 
-        public string[] Aliases { get; } = { };
+        public string[] Aliases { get; } = { "ecount" };
 
         public string Description { get; } = "Sends a cassie countdown specified in the plugins config.";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            string cassieMessage = EventTools.Instance.Config.CassieMessage;
+            string cassieMessage = Plugin.Instance.Config.CassieMessage;
             Cassie.Message(cassieMessage, false, false, true);
-            string cassieResponseMessage = EventTools.Instance.Config.CassieResponseMessage;
+            string cassieResponseMessage = Plugin.Instance.Config.CassieResponseMessage;
             response = cassieResponseMessage;
             return true;
         }
