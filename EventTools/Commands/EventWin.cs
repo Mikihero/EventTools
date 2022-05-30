@@ -38,6 +38,8 @@ namespace EventTools.Commands
                     {
                         foreach (Player pl in Player.List) pl.SetRole(RoleType.Spectator);
                     }
+                    Player.Get(sender).SetRole(RoleType.ClassD);
+                    target.SetRole(RoleType.ClassD);
                     Player.Get(sender).SetRole(RoleType.Tutorial);
                     target.SetRole(RoleType.Tutorial);
                     response = "Success!";
