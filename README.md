@@ -27,7 +27,7 @@ This plugin is property of Miki_hero, using it is obviously allowed, if you wish
 **45-46** - Teleports everyone to a random room.  
 **47-50** - Deep, and I mean **Deep** fakes a cassie announcement (you can still get a christmast MTF tho). I've spent a lot of time on this one and I'm proud of it.  
 - **Deathmatch** - Starts a deathmatch with a specified weapon (com15/com18/fsp9/crossvec/ak/e11/logicer/shotgun/revolver/lasergun), unlocks all the doors in LCZ, then locks doors like: 914, 330, pc room etc., gives everyone heals (usually SCP-500 and a medkit but it differs depending on the chosen weapon), armor and ammo for the chosen weapon, after 1 minute sends a silent cassie with a countdown and then gives everyone the specified weapon. Highly recommended to combine it with the EventStart command since that's the way it was tested and intended to be used.
-- **EventWin** - Forceclasses you and the specified player to tutorial.
+- **EventWin** - Forceclasses you and the specified player to tutorial, and everyone else to spectator (the last one is config dependend, false by default).
 
 **Most of the above commands have aliases that are abreviations of the original command eg. EventEnd == EEnd.**
 
