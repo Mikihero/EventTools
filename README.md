@@ -1,5 +1,5 @@
 # EventTools
-SCP:SL plugin designed to automate several tasks usually done by hand while organizing events.
+SCP:SL plugin designed to help with preparing events by automating quite a few of the tasks.
 This plugin is property of Miki_hero, using it is obviously allowed, if you wish to expand it, incorporate it into your project or use parts of it in any way feel free to do so but do give me credit for my work.
 
 **Commands:**  
