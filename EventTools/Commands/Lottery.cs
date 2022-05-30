@@ -21,9 +21,8 @@ namespace EventTools.Commands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             System.Random Rd = new System.Random();
-            int lotteryTicket = Rd.Next(1, 51);
+            int lotteryTicket = Rd.Next(49, 51);
             string message = Plugin.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
-            Log.Info("Herobrine.");
             switch (lotteryTicket)
             {
                 case 1:
@@ -150,13 +149,19 @@ namespace EventTools.Commands
                 case 49:
                 case 50:
                     Map.Broadcast(2, message);
-                    int RandomCassie = Rd.Next(1, 5);
+                    int RandomCassie = Rd.Next(4, 5);
                     int ClassDCount = 0;
                     int ScientistCount = 0;
                     int MTFCount = 0;
                     int CICount = 0;
                     int ScpAmount = 0;
                     int Count079 = 0;
+                    int Count173 = 0;
+                    int Count106 = 0;
+                    int Count049 = 0;
+                    int Count096 = 0;
+                    int Count9395 = 0;
+                    int Count9398 = 0;
                     foreach (Player pl in Player.List)
                     {
                         if (pl.Role == RoleType.ClassD) ClassDCount++;
@@ -165,6 +170,12 @@ namespace EventTools.Commands
                         if (pl.LeadingTeam == LeadingTeam.FacilityForces && pl.Role != RoleType.Scientist) MTFCount++;
                         if (pl.LeadingTeam == LeadingTeam.ChaosInsurgency && pl.Role != RoleType.ClassD) CICount++;
                         if (pl.LeadingTeam == LeadingTeam.Anomalies && pl.Role != RoleType.Scp0492) ScpAmount++;
+                        if (pl.Role == RoleType.Scp173) Count173++;
+                        if (pl.Role == RoleType.Scp106) Count106++;
+                        if (pl.Role == RoleType.Scp049) Count049++;
+                        if (pl.Role == RoleType.Scp096) Count096++;
+                        if (pl.Role == RoleType.Scp93953) Count9395++;
+                        if (pl.Role == RoleType.Scp93989) Count9398++;
                     }
                     switch (RandomCassie)
                     {
@@ -208,15 +219,12 @@ namespace EventTools.Commands
                             Cassie.Message($"Xmas_epsilon11 NATO_B 14 Xmas_hasentered {ScpAmount} xmas_scpsubjects");
                             break;
                         case 4:
-                            foreach (Player pl in Player.List)
-                            {
-                                if (pl.Role == RoleType.Scp173) Cassie.Message("SCP 1 7 3 successfully terminated by Automatic Security System");
-                                if (pl.Role == RoleType.Scp049) Cassie.Message("SCP 0 4 9 successfully terminated by Automatic Security System");
-                                if (pl.Role == RoleType.Scp096) Cassie.Message("SCP 0 9 6 successfully terminated by Automatic Security System");
-                                if (pl.Role == RoleType.Scp106) Cassie.Message("SCP 1 0 6 successfully terminated by Automatic Security System");
-                                if (pl.Role == RoleType.Scp93953 || pl.Role == RoleType.Scp93989) Cassie.Message("SCP 9 3 9 successfully terminated by Automatic Security System");
-                                else Cassie.Message("pitch_0.1 .g6 pitch_0.2 .g6 pitch_0.3 .g6 pitch_0.4 .g6 pitch_0.5 .g6", false, false);
-                            }
+                            if (Count173 > 0) Cassie.Message("SCP 1 7 3 successfully terminated by Automatic Security System");
+                            else if (Count9395 > 0 || Count9398 > 0) Cassie.Message("SCP 9 3 9 successfully terminated by Automatic Security System");
+                            else if (Count096 > 0) Cassie.Message("SCP 0 9 6 successfully terminated by Automatic Security System");
+                            else if (Count106 > 0) Cassie.Message("SCP 1 0 6 successfully terminated by Automatic Security System");
+                            else if (Count049 > 0) Cassie.Message("SCP 0 4 9 successfully terminated by Automatic Security System");
+                            else Cassie.Message("pitch_0.1 .g6 pitch_0.2 .g6 pitch_0.3 .g6 pitch_0.4 .g6 pitch_0.5 .g6", false, false);
                             break;
                     }
                     break;
