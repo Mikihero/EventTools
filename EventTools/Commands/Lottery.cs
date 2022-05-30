@@ -21,7 +21,7 @@ namespace EventTools.Commands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             System.Random Rd = new System.Random();
-            int lotteryTicket = Rd.Next(49, 51);
+            int lotteryTicket = Rd.Next(1, 51);
             string message = Plugin.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
             switch (lotteryTicket)
             {
@@ -149,7 +149,7 @@ namespace EventTools.Commands
                 case 49:
                 case 50:
                     Map.Broadcast(2, message);
-                    int RandomCassie = Rd.Next(4, 5);
+                    int RandomCassie = Rd.Next(1, 5);
                     int ClassDCount = 0;
                     int ScientistCount = 0;
                     int MTFCount = 0;
