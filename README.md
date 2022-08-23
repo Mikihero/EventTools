@@ -1,5 +1,5 @@
 # EventTools
-[![Github All Releases](https://img.shields.io/github/downloads/Mikihero/EventTools/total.svg)]()  
+<a href="https://github.com/Mikihero/EventTools/releases"><img src="https://img.shields.io/github/downloads/Mikihero/EventTools/total?label=Downloads" alt="Downloads"></a>
   
 An SCP:SL EXILED plugin designed to automate several tasks usually done by hand while organizing events.
 
