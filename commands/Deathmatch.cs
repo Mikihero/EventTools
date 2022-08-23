@@ -11,7 +11,7 @@ using MEC;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class Deathmatch : ICommand
+    class Deathmatch : ICommand, IUsageProvider
     {
         public string Command => "Deathmatch";
 
@@ -19,17 +19,22 @@ namespace EventTools.Commands
 
         public string Description => "Starts a Deathmatch";
 
+        public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
+
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (arguments.Count < 1)
             {
-                response = "Usage: deathmatch com15/com18/fsp9/crossvec/ak/e11/logicer/shotgun/revolver/lasergun";
+                response = "Incorrect usage.";
                 return false;
             }
             else
             {
                 switch (arguments.At(0))
                 {
+                    case "weapons":
+                        response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
+                            return false;
                     case "com15":
                         foreach (Player pl in Player.List)
                         {
@@ -190,7 +195,7 @@ namespace EventTools.Commands
                         });
                         response = "Deathmatch successfully started.";
                         return true;
-                    case "e11":
+                    case "epsilon":
                         foreach (Player pl in Player.List)
                         {
                             pl.AddItem(ItemType.SCP500);

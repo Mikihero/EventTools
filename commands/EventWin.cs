@@ -9,7 +9,7 @@ using Exiled.API.Features;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventWin : ICommand
+    class EventWin : ICommand, IUsageProvider
     {
         public string Command => "eventwin";
 
@@ -17,11 +17,13 @@ namespace EventTools.Commands
 
         public string Description => "Forceclasses you and a chosen player to tutorial.";
 
+        public string[] Usage { get; set; } = { "Player ID or Name"};
+
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (arguments.Count < 1)
             {
-                response = "Usage: eventwin player id/player name";
+                response = "Incorrect usage.";
                 return false;
             }
             else

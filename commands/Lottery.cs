@@ -11,7 +11,7 @@ namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     class Lottery : ICommand
-    { 
+    {
         public string Command => "lottery";
 
         public string[] Aliases { get; set; } = { "loteria" };
@@ -21,7 +21,7 @@ namespace EventTools.Commands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             System.Random Rd = new System.Random();
-            int lotteryTicket = Rd.Next(50, 51);
+            int lotteryTicket = Rd.Next(1, 51);
             string message = Plugin.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
             switch (lotteryTicket)
             {
@@ -77,7 +77,7 @@ namespace EventTools.Commands
                 case 19:
                 case 20:
                     Map.Broadcast(2, message);
-                    //nic
+                    //nothing for now
                     break;
                 case 21:
                 case 22:
@@ -89,7 +89,7 @@ namespace EventTools.Commands
                 case 25:
                 case 26:
                     Map.Broadcast(2, message);
-                    //nic
+                    //nothing for now
                     break;
                 case 27:
                 case 28:
@@ -149,7 +149,7 @@ namespace EventTools.Commands
                 case 49:
                 case 50:
                     Map.Broadcast(2, message);
-                    int RandomCassie = Rd.Next(1, 2);
+                    int RandomCassie = Rd.Next(1, 5);
                     switch (RandomCassie)
                     {
                         case 1:
