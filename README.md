@@ -1,6 +1,7 @@
 # EventTools
 [![Github All Releases](https://img.shields.io/github/downloads/Mikihero/EventTools/total.svg)]()  
-An SCP:SL plugin designed to automate several tasks usually done by hand while organizing events.
+  
+An SCP:SL EXILED plugin designed to automate several tasks usually done by hand while organizing events.
 
 ### **Commands:**  
 - **EventStart** - Starts the event by: removing all the items and ragdolls, enabling roundlock, setting respawn tickets to 1 (not 0 cause SL will spawn ~5 people when tickets are 0), forceclassing everyone to class d, forceclassing the command sender to tutorial and enabling noclip for them, locking all the doors in the facility (all of the aformentioned can be configured in the config). Useful for preparing the event.  
