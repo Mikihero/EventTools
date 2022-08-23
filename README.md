@@ -35,3 +35,5 @@ This plugin is property of Miki_hero, using it is obviously allowed, if you wish
 - Every 5 minutes there is an administrative broadcast reminding you that roundlock is enabled (if it is).  
   
 **Pretty much everything you can imagine about the above commands and features can be changed in the config file of your server.**
+
+**README MIGHT BE OUTDATED A BIT, WILL FIX WHEN I GET TO IT!**
