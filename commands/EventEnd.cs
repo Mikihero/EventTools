@@ -8,6 +8,7 @@ using Exiled.API;
 using Exiled.Events;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using MEC;
 
 namespace EventTools.Commands
 {

@@ -3,124 +3,90 @@ using Exiled.API.Features;
 using System;
 using System.Timers;
 using Exiled.Permissions.Extensions;
+using MEC;
+using System.Collections.Generic;
 
 namespace EventTools
 {
     public class Plugin : Plugin<Config>
     {
-        private static Timer aTimer;
-        private static Timer aTimer2;
-
         public static Plugin Instance;
         public override Version RequiredExiledVersion => new Version(5, 2, 1);
+        public override Version Version => new Version(1, 4, 3);
+        public override string Author => "Miki_hero";
 
-        public static int tester1 = 2;
-        public static int tester2 = 2;
+        public static int test = 0;
+
 
         public override void OnEnabled()
         {
             Instance = this;
-            SetTimer();
-            SetTimer2();
+            Timing.RunCoroutine(RoundLockAdminChat());
+            Timing.RunCoroutine(RoundLockReminder());
             base.OnEnabled();
         }
 
-        public static void RoundLockAdminChat(Object sender, ElapsedEventArgs e)
+        public override void OnDisabled()
         {
-            if (Round.IsLocked == true)
+            Timing.KillCoroutines();
+            base.OnDisabled();
+        }
+
+        public IEnumerator<float> RoundLockAdminChat()
+        {
+            while(true)
             {
-                string message = Instance.Config.RLEnabledMessage;
-                tester1 = 1;
-                if (tester2 == 2)
+                if (Round.IsLocked)
                 {
-                    tester2 = tester1;
-                    foreach (Player player in Player.List)
+                    string message = Instance.Config.RLEnabledMessage;
+                    if (test == 0)
                     {
-                        if (Permissions.CheckPermission(player, "et.roundlockinfo") == true)
+                        foreach (Player pl in Player.List)
                         {
-                            player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                            if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
+                            {
+                                pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                            }
                         }
                     }
-                }
-                if (tester2 == tester1)
-                {
-
+                    test = 1;
                 }
                 else
                 {
-                    foreach (Player player in Player.List)
+                    string message = Instance.Config.RLDisabledMessage;
+                    if (test == 1)
                     {
-                        if (Permissions.CheckPermission(player, "et.roundlockinfo") == true)
+                        foreach (Player pl in Player.List)
                         {
-                            player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                            if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
+                            {
+                                pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                            }
                         }
                     }
-                    tester2 = tester1;
+                    test = 0;
                 }
+                yield return Timing.WaitForSeconds(1f);
             }
-            else
+        }
+
+        public IEnumerator<float> RoundLockReminder()
+        {
+            while(true)
             {
-                string message = Instance.Config.RLDisabledMessage;
-                tester1 = 0;
-                if (tester2 == 2)
+                string message = Instance.Config.RLStillEnabled;
+                if (Round.IsLocked)
                 {
-                    tester2 = tester1;
                     foreach (Player player in Player.List)
                     {
-                        if (Permissions.CheckPermission(player, "et.roundlockinfo") == true)
+                        if (Permissions.CheckPermission(player, "AdminChat"))
                         {
                             player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
                         }
                     }
                 }
-                if (tester2 == tester1)
-                {
-
-                }
-                else
-                {
-                    foreach (Player player in Player.List)
-                    {
-                        if (Permissions.CheckPermission(player, "et.roundlockinfo") == true)
-                        {
-                            player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
-                        }
-                    }
-                    tester2 = tester1;
-                }
+                yield return Timing.WaitForSeconds(300f);
             }
-        }
-
-        public static void RoundLockAdminChatReminder(Object sender, ElapsedEventArgs e)
-        {
-            string message = Instance.Config.RLStillEnabled;
-            if (Round.IsLocked == true)
-            {
-                foreach (Player player in Player.List)
-                {
-                    if (Permissions.CheckPermission(player, "AdminChat") == true)
-                    {
-                        player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
-                    }
-                }
-            }
-        }
-
-        private static void SetTimer()
-        {
-            aTimer = new Timer(1000);
-            aTimer.Elapsed += RoundLockAdminChat;
-            aTimer.AutoReset = true;
-            aTimer.Enabled = true;
-        }
-
-        private static void SetTimer2()
-        {
-            int time = Instance.Config.RLReminderTime;
-            aTimer2 = new Timer(time);
-            aTimer2.Elapsed += RoundLockAdminChatReminder;
-            aTimer2.AutoReset = true;
-            aTimer2.Enabled = true;
         }
     }
 }
