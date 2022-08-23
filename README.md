@@ -38,7 +38,7 @@ SCP:SL plugin designed to automate several tasks usually done by hand while orga
 ### Default config:
 ```yaml
 event_tools:
-# Enables or disables the plugin.
+  # Enables or disables the plugin.
   is_enabled: true
   # The message sent when someone enables the RoundLock, can be formatted like a normal SL broadcast.
   r_l_enabled_message: '[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#50c878>RoundLock</color><color=#ffffff> has been </color><color=#00ffff>enabled.</color>'
