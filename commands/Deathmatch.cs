@@ -359,7 +359,7 @@ namespace EventTools.Commands
                         response = "Deathmatch successfully started.";
                         return true;
                     default:
-                        response = "Usage: deathmatch com15/com18/fsp9/crossvec/ak/e11/logicer/shotgun/revolver/lasergun";
+                        response = "Incorrect usage.";
                         return false;
                 }
             }

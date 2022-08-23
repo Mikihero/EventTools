@@ -9,27 +9,28 @@ using Exiled.API.Features;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventNext : ICommand
+    class EventNext : ICommand, IUsageProvider
     {
         public string Command => "EventNext";
 
         public string[] Aliases { get; set; } = { "enext" };
 
-        public string Description => "Sends an announcement about an event happening next round.";
+        public string Description => "Sends a broadcast about an event happening next round.";
+
+        public string[] Usage { get; set; } = { "event name" };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if(arguments.Count == 0)
             {
-                response = "Usage: EventNext {EventName}";
+                response = "Incorrect usage.";
                 return false;
             }
             else
             {
-                string message = string.Join(" ", arguments);
-                string MessageStart = Plugin.Instance.Config.EventNextMessage1;
-                string MessageEnd = Plugin.Instance.Config.EventNextMessage2;
-                Map.Broadcast(10, MessageStart + message + MessageEnd);
+                string eventname = string.Join(" ", arguments);
+                string message = Plugin.Instance.Config.ENextMessage.Replace("{EVENTNAME}", eventname);
+                Map.Broadcast(10, message);
                 response = "Broadcast sent!";
                 return true;
             }

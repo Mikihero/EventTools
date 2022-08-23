@@ -22,7 +22,7 @@ namespace EventTools.Commands
         {
             System.Random Rd = new System.Random();
             int lotteryTicket = Rd.Next(1, 51);
-            string message = Plugin.Instance.Config.LotteryBC.Replace("[NUMBER]", lotteryTicket.ToString());
+            string message = Plugin.Instance.Config.LotteryBroadcast.Replace("[NUMBER]", lotteryTicket.ToString());
             switch (lotteryTicket)
             {
                 case 1:

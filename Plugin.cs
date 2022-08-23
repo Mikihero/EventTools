@@ -1,7 +1,5 @@
-﻿using Exiled.API.Enums;
-using Exiled.API.Features;
+﻿using Exiled.API.Features;
 using System;
-using System.Timers;
 using Exiled.Permissions.Extensions;
 using MEC;
 using System.Collections.Generic;
@@ -17,11 +15,10 @@ namespace EventTools
 
         public static int test = 0;
 
-
         public override void OnEnabled()
         {
             Instance = this;
-            Timing.RunCoroutine(RoundLockAdminChat());
+            Timing.RunCoroutine(RoundLockToggle());
             Timing.RunCoroutine(RoundLockReminder());
             base.OnEnabled();
         }
@@ -32,14 +29,14 @@ namespace EventTools
             base.OnDisabled();
         }
 
-        public IEnumerator<float> RoundLockAdminChat()
+        public IEnumerator<float> RoundLockToggle()
         {
             while(true)
             {
                 if (Round.IsLocked)
                 {
                     string message = Instance.Config.RLEnabledMessage;
-                    if (test == 0)
+                    if (test == 0) //check if the round was already locked, if not send the broadcast
                     {
                         foreach (Player pl in Player.List)
                         {
@@ -54,7 +51,7 @@ namespace EventTools
                 else
                 {
                     string message = Instance.Config.RLDisabledMessage;
-                    if (test == 1)
+                    if (test == 1) //check if the round was already locked, if it was send the broadcast
                     {
                         foreach (Player pl in Player.List)
                         {
@@ -85,7 +82,8 @@ namespace EventTools
                         }
                     }
                 }
-                yield return Timing.WaitForSeconds(300f);
+                yield return Timing.WaitForSeconds(Instance.Config.RLReminderTime);
+                //every x ammount of seconds (determined by config) checks if the round lock is enabled, if so sends a broadcast
             }
         }
     }

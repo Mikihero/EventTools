@@ -9,7 +9,7 @@ using Exiled.API.Features;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventNow : ICommand
+    class EventNow : ICommand, IUsageProvider
     {
         public string Command => "EventNow";
 
@@ -17,19 +17,20 @@ namespace EventTools.Commands
 
         public string Description => "Sends an announcement about an event happening this round.";
 
+        public string[] Usage { get; set; } = { "event name" };
+
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if(arguments.Count == 0)
             {
-                response = "Usage: EventNow {EventName}";
+                response = "Invalid usage.";
                 return false;
             }
             else
             {
-                string message = string.Join(" ", arguments);
-                string MessageStart = Plugin.Instance.Config.EventNowMessage1;
-                string MessageEnd = Plugin.Instance.Config.EventNowMessage2;
-                Map.Broadcast(20, MessageStart + message + MessageEnd);
+                string eventname = string.Join(" ", arguments);
+                string message = Plugin.Instance.Config.ENowMessage.Replace("{EVENTNAME}", eventname);
+                Map.Broadcast(20, message);
                 response = "Broadcast sent!";
                 return true;
             }

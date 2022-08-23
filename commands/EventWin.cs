@@ -36,7 +36,7 @@ namespace EventTools.Commands
                 }
                 else
                 {
-                    if (Plugin.Instance.Config.EWForceClassEveryoneToSpectator)
+                    if (Plugin.Instance.Config.EWFCEveryoneToSpectator)
                     {
                         foreach (Player pl in Player.List) pl.SetRole(RoleType.Spectator);
                     }

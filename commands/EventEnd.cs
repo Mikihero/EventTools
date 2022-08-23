@@ -30,7 +30,6 @@ namespace EventTools.Commands
             }
             Round.IsLocked = false;
             Warhead.Detonate();
-            string responseMessage = Plugin.Instance.Config.EventEndResponseMessage;
             response = "Everyone is sad because the event is over (and also they exploded!).";
             return true;
         }

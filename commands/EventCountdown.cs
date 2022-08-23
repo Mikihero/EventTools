@@ -19,10 +19,8 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            string cassieMessage = Plugin.Instance.Config.CassieMessage;
-            Cassie.Message(cassieMessage, false, false, true);
-            string cassieResponseMessage = Plugin.Instance.Config.CassieResponseMessage;
-            response = cassieResponseMessage;
+            Cassie.Message(Plugin.Instance.Config.ECCassieMessage, false, false, Plugin.Instance.Config.ECSubtitles);
+            response = "Countdown started";
             return true;
         }
     }
