@@ -9,7 +9,7 @@ namespace EventTools
     public class Plugin : Plugin<Config>
     {
         public static Plugin Instance;
-        public override Version RequiredExiledVersion => new Version(5, 2, 1);
+        public override Version RequiredExiledVersion => new Version(5, 3, 0);
         public override Version Version => new Version(2, 0, 0);
         public override string Author => "Miki_hero";
 
