@@ -111,6 +111,7 @@
     <Compile Include="Commands\EventNext.cs" />
     <Compile Include="Commands\EventStart.cs" />
     <Compile Include="Commands\EventWin.cs" />
+    <Compile Include="Commands\FactionWars.cs" />
     <Compile Include="Commands\LockZone.cs" />
     <Compile Include="Commands\Lottery.cs" />
     <Compile Include="Config.cs" />
