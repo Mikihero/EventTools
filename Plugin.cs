@@ -3,6 +3,7 @@ using System;
 using Exiled.Permissions.Extensions;
 using MEC;
 using System.Collections.Generic;
+using player = Exiled.Events.Handlers.Player;
 
 namespace EventTools
 {
@@ -14,19 +15,34 @@ namespace EventTools
         public override string Author => "Miki_hero";
 
         public static int test = 0;
+        private EventHandlers EventHandler;
 
         public override void OnEnabled()
         {
             Instance = this;
             Timing.RunCoroutine(RoundLockToggle());
             Timing.RunCoroutine(RoundLockReminder());
+            RegisterEvents();
             base.OnEnabled();
         }
 
         public override void OnDisabled()
         {
             Timing.KillCoroutines();
+            UnRegisterEvents();
             base.OnDisabled();
+        }
+
+        public void RegisterEvents()
+        {
+            EventHandler = new EventHandlers();
+            player.Left += EventHandler.OnLeft;
+
+        }
+        public void UnRegisterEvents()
+        {
+            player.Left -= EventHandler.OnLeft;
+            EventHandler = null;
         }
 
         public IEnumerator<float> RoundLockToggle()

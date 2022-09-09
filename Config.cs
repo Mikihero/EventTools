@@ -18,7 +18,7 @@ namespace EventTools
         public string RLStillEnabled { get; set; } = "[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>";
 
         [Description("The amount of seconds every which the plugin should check if round lock is enabled and send a broadcast accordingly. Default: 300")]
-        public float RLReminderTime { get; set; } = 5;
+        public float RLReminderTime { get; set; } = 300;
 
         [Description("Whether or not the EventStart command should cleanup ragdolls. Default: true")]
         public bool ESCleanupRagdolls { get; set; } = true;
