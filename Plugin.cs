@@ -21,7 +21,6 @@ namespace EventTools
         {
             Instance = this;
             Timing.RunCoroutine(RoundLockToggle());
-            Timing.RunCoroutine(RoundLockReminder());
             RegisterEvents();
             base.OnEnabled();
         }
@@ -60,6 +59,7 @@ namespace EventTools
                             if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
                             {
                                 pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                                Timing.RunCoroutine(RoundLockReminder(), "RoundLockReminder");
                             }
                         }
                     }
@@ -75,6 +75,7 @@ namespace EventTools
                             if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
                             {
                                 pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                                Timing.KillCoroutines("RoundLockReminder");
                             }
                         }
                     }
@@ -88,6 +89,7 @@ namespace EventTools
         {
             while(true)
             {
+                yield return Timing.WaitForSeconds(Instance.Config.RLReminderTime); //every x ammount of seconds (determined by config) checks if the round lock is enabled, if so sends a broadcast
                 string message = Instance.Config.RLStillEnabled;
                 if (Round.IsLocked)
                 {
@@ -99,8 +101,6 @@ namespace EventTools
                         }
                     }
                 }
-                yield return Timing.WaitForSeconds(Instance.Config.RLReminderTime);
-                //every x ammount of seconds (determined by config) checks if the round lock is enabled, if so sends a broadcast
             }
         }
     }

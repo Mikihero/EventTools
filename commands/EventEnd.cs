@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommandSystem;
-using Exiled.API;
-using Exiled.Events;
 using Exiled.API.Features;
 using Exiled.API.Enums;
-using MEC;
 
 namespace EventTools.Commands
 {
