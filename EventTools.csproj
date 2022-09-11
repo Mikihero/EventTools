@@ -112,9 +112,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Deathmatch.cs" />
-    <Compile Include="Commands\EnableElevators.cs" />
+    <Compile Include="Commands\EventFinish.cs" />
     <Compile Include="Commands\EventCountdown.cs" />
-    <Compile Include="Commands\EventEnd.cs" />
+    <Compile Include="Commands\EventExplode.cs" />
     <Compile Include="Commands\EventNow.cs" />
     <Compile Include="Commands\EventNext.cs" />
     <Compile Include="Commands\EventStart.cs" />

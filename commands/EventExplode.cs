@@ -6,13 +6,13 @@ using Exiled.API.Enums;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventEnd : ICommand
+    class EventExplode : ICommand
     {
-        public string Command => "EventEnd";
+        public string Command => "EventExplode";
 
-        public string[] Aliases { get; set; } = { "Eventfinish", "eend"};
+        public string[] Aliases { get; set; } = { "eexplode", "eboom", "enuke" };
 
-        public string Description => "Finishes the event with a bang!";
+        public string Description => "Ends the event (and round) with a bang!";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {

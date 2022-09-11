@@ -1,4 +1,5 @@
-﻿using Exiled.Events.EventArgs;
+﻿using Exiled.API.Features;
+using Exiled.Events.EventArgs;
 
 namespace EventTools
 {
@@ -16,6 +17,11 @@ namespace EventTools
             {
                 ev.IsAllowed = false; //prevents the elevators from being used while the FactionWars event is happening
             }
+        }
+
+        public void OnRoundStart()
+        {
+            Commands.EventFinish.FriendlyFireState = Server.FriendlyFire;
         }
     }
 }

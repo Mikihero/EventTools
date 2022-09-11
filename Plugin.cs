@@ -4,6 +4,7 @@ using Exiled.Permissions.Extensions;
 using MEC;
 using System.Collections.Generic;
 using player = Exiled.Events.Handlers.Player;
+using server = Exiled.Events.Handlers.Server;
 
 namespace EventTools
 {
@@ -36,6 +37,7 @@ namespace EventTools
         {
             EventHandler = new EventHandlers();
             player.Left += EventHandler.OnLeft;
+            server.RoundStarted += EventHandler.OnRoundStart;
             player.InteractingElevator += EventHandler.OnUsingElevator;
         }
         public void UnRegisterEvents()

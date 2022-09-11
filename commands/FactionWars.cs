@@ -32,6 +32,10 @@ namespace EventTools.Commands
                     item.Destroy();
                 }
             }
+            if(Plugin.Instance.Config.FWDisaableFF)
+            {
+                Server.FriendlyFire = false;
+            }
             int test = 0;
             foreach (Player pl in Player.List) //divides all players except for the command sender into 2 groups
             {
@@ -161,9 +165,12 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     break;
                 case "lasergun":
-                    pl.AddItem(ItemType.ParticleDisruptor, 4);
-                    pl.AddItem(ItemType.SCP500, 2);
-                    pl.AddItem(ItemType.Medkit, 2);
+                    Timing.CallDelayed(28f, () =>
+                    {
+                        pl.AddItem(ItemType.ParticleDisruptor, 4);
+                        pl.AddItem(ItemType.SCP500, 2);
+                        pl.AddItem(ItemType.Medkit, 2);
+                    });
                     break;
                 default:
                     Log.Info("how in the fuck");
@@ -212,7 +219,7 @@ namespace EventTools.Commands
             }
         }
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: Set tickets to 0 and other stuff like that to prevent abuse or smth
         {
             ClassD.Clear(); //clears both of the player lists before executing the rest of the command to prevent any bad things from happening
             Scientist.Clear();

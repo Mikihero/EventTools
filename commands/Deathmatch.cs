@@ -17,6 +17,22 @@ namespace EventTools.Commands
 
         public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
 
+        public void DoorsStuff() //TODO: add a switch with an option of choosing a zone
+        {
+            Server.FriendlyFire = true;
+            Door.UnlockAll(ZoneType.LightContainment);
+            Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
+            Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+        }
+
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             if (arguments.Count < 1)
@@ -39,17 +55,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato9, 100);
                             pl.AddItem(ItemType.ArmorCombat);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -71,17 +77,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato9, 120);
                             pl.AddItem(ItemType.ArmorCombat);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -103,17 +99,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato9, 200);
                             pl.AddItem(ItemType.ArmorCombat);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -135,17 +121,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato9, 200);
                             pl.AddItem(ItemType.ArmorCombat);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -167,17 +143,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato762, 200);
                             pl.AddItem(ItemType.ArmorHeavy);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -199,17 +165,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato556, 200);
                             pl.AddItem(ItemType.ArmorHeavy);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -231,17 +187,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Nato762, 200);
                             pl.AddItem(ItemType.ArmorHeavy);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -263,17 +209,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Ammo12Gauge, 70);
                             pl.AddItem(ItemType.ArmorHeavy);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -295,17 +231,7 @@ namespace EventTools.Commands
                             pl.AddAmmo(AmmoType.Ammo44Cal, 100);
                             pl.AddItem(ItemType.ArmorHeavy);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -322,21 +248,10 @@ namespace EventTools.Commands
                     case "lasergun":
                         foreach (Player pl in Player.List)
                         {
-                            pl.AddItem(ItemType.SCP500);
-                            pl.AddItem(ItemType.SCP500);
+                            pl.AddItem(ItemType.SCP500, 2);
                             pl.AddItem(ItemType.Medkit);
                         }
-                        Door.UnlockAll(ZoneType.LightContainment);
-                        Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-                        Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+                        DoorsStuff();
                         Timing.CallDelayed(60f, () =>
                         {
                             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
@@ -344,11 +259,7 @@ namespace EventTools.Commands
                             {
                                 foreach (Player pl in Player.List)
                                 {
-                                    pl.AddItem(ItemType.ParticleDisruptor);
-                                    pl.AddItem(ItemType.ParticleDisruptor);
-                                    pl.AddItem(ItemType.ParticleDisruptor);
-                                    pl.AddItem(ItemType.ParticleDisruptor);
-                                    pl.AddItem(ItemType.ParticleDisruptor);
+                                    pl.AddItem(ItemType.ParticleDisruptor, 5);
                                 }
                             });
                         });
