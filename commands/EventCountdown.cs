@@ -13,7 +13,7 @@ namespace EventTools.Commands
     {
         public string Command { get; } = "EventCountdown";
 
-        public string[] Aliases { get; } = { "ecount" };
+        public string[] Aliases { get; set; } = { "ecount" };
 
         public string Description { get; } = "Sends a cassie countdown specified in the plugins config.";
 

@@ -37,11 +37,12 @@ namespace EventTools
         {
             EventHandler = new EventHandlers();
             player.Left += EventHandler.OnLeft;
-
+            player.InteractingElevator += EventHandler.OnUsingElevator;
         }
         public void UnRegisterEvents()
         {
             player.Left -= EventHandler.OnLeft;
+            player.InteractingElevator -= EventHandler.OnUsingElevator;
             EventHandler = null;
         }
 
