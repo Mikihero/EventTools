@@ -64,7 +64,11 @@ namespace EventTools
 
         [Description ("Whether or not the FactionWars command should cleanup items. Default: true.")]
         public bool FWCleanupItems { get; set; } = true;
+
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
         public bool FWDisaableFF { get; set; } = true;
+        
+        [Description("Whether or not the FactionWars command should set tickets to 1 in order to prevent massive respawn waves from disrupting the event. Default: true.")]
+        public bool FWTickets { get; set; } = true;
     }
 }
