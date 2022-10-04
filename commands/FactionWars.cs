@@ -23,38 +23,32 @@ namespace EventTools.Commands
         public static HashSet<Player> Scientist = new HashSet<Player> { };
         public static bool IsEventActive = false;
 
-        public void BeforeWeaponsStuff(Player commandSender)
+        public void PreparePlayers(Player commandSender)
         {
-            if (Plugin.Instance.Config.FWCleanupItems)
-            {
-                foreach (Pickup item in Map.Pickups)
-                {
-                    item.Destroy();
-                }
-            }
-            if(Plugin.Instance.Config.FWDisaableFF)
+            commandSender.AddItem(ItemType.GunE11SR);
+            commandSender.AddItem(ItemType.ArmorCombat);
+            commandSender.SetAmmo(AmmoType.Nato556, 120);
+            if (Plugin.Instance.Config.FWDisaableFF)
             {
                 Server.FriendlyFire = false;
             }
-            int test = 0;
+            int helper = 0;
             foreach (Player pl in Player.List) //divides all players except for the command sender into 2 groups
             {
                 if (pl != commandSender)
                 {
-                    if (test == 0)
+                    if (helper == 0)
                     {
                         ClassD.Add(pl);
-                        test = 1;
+                        helper = 1;
                     }
-                    else if (test == 1)
+                    else if (helper == 1)
                     {
                         Scientist.Add(pl);
-                        test = 0;
+                        helper = 0;
                     }
                 }
             }
-            commandSender.SetRole(RoleType.Tutorial);
-            commandSender.NoClipEnabled = true;
             foreach (Player pl in ClassD)
             {
                 pl.SetAmmo(AmmoType.Ammo12Gauge, 0); //player.ClearInventory() doesn't remove ammo so any ammo over the no-armor ammo limit just falls on the ground if it isn't set to 0 this way
@@ -87,29 +81,27 @@ namespace EventTools.Commands
             }
         }
 
-        public void WeaponsStuff(Player pl, string weapon, DoorType door)
+        public void TPAndWeapons(Player pl, ItemType weapon, DoorType door)
         {
-            Door.Get(DoorType.ServersBottom).IsOpen = true; //opening the doors before teleporting in players to prevent any form of desync's happening
-            Door.Get(DoorType.GateA).IsOpen = true;
-            Door.Get(DoorType.GateB).IsOpen = true;
+            Door.Get(door).IsOpen = true; //opening the door before teleporting players in to prevent any form of desync's happening
             pl.Teleport(Door.Get(door));
             switch (weapon)
             {
-                case "com15":
+                case ItemType.GunCOM15:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunCOM15);
                     pl.SetAmmo(AmmoType.Nato9, 100);
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Painkillers);
                     break;
-                case "com18":
+                case ItemType.GunCOM18:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunCOM18);
                     pl.SetAmmo(AmmoType.Nato9, 120);
                     pl.AddItem(ItemType.SCP500);
                     pl.AddItem(ItemType.Medkit);
                     break;
-                case "fsp9":
+                case ItemType.GunFSP9:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunFSP9);
                     pl.SetAmmo(AmmoType.Nato9, 150);
@@ -117,7 +109,7 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline);
                     break;
-                case "crossvec":
+                case ItemType.GunCrossvec:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunCrossvec);
                     pl.SetAmmo(AmmoType.Nato9, 150);
@@ -125,7 +117,7 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline);
                     break;
-                case "ak":
+                case ItemType.GunAK:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunAK);
                     pl.SetAmmo(AmmoType.Nato762, 150);
@@ -133,7 +125,7 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline);
                     break;
-                case "epsilon":
+                case ItemType.GunE11SR:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunE11SR);
                     pl.SetAmmo(AmmoType.Nato556, 150);
@@ -141,7 +133,7 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline);
                     break;
-                case "logicer":
+                case ItemType.GunLogicer:
                     pl.AddItem(ItemType.ArmorHeavy);
                     pl.AddItem(ItemType.GunLogicer);
                     pl.SetAmmo(AmmoType.Nato762, 200);
@@ -149,7 +141,7 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline);
                     break;
-                case "shotgun":
+                case ItemType.GunShotgun:
                     pl.AddItem(ItemType.ArmorHeavy);
                     pl.AddItem(ItemType.GunShotgun);
                     pl.SetAmmo(AmmoType.Ammo12Gauge, 69);
@@ -157,14 +149,14 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.Medkit);
                     pl.AddItem(ItemType.Adrenaline, 2);
                     break;
-                case "revolver":
+                case ItemType.GunRevolver:
                     pl.AddItem(ItemType.ArmorCombat);
                     pl.AddItem(ItemType.GunRevolver);
                     pl.SetAmmo(AmmoType.Ammo44Cal, 69);
                     pl.AddItem(ItemType.SCP500);
                     pl.AddItem(ItemType.Medkit);
                     break;
-                case "lasergun":
+                case ItemType.ParticleDisruptor:
                     Timing.CallDelayed(28f, () =>
                     {
                         pl.AddItem(ItemType.ParticleDisruptor, 4);
@@ -173,23 +165,24 @@ namespace EventTools.Commands
                     });
                     break;
                 default:
-                    Log.Info("how in the fuck");
+                    Log.Info("If you're seeing this, open an issue on github (https://github.com/Mikihero/EventTools)");
                     break;
             }
+            
         }
 
-        public void RemainingStuff(ZoneType zone)
+        public void DoorsAndCassie(ZoneType zone)
         {
             Door.LockAll(9999, DoorLockType.AdminCommand);
             Cassie.Message("30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 start", false, true, true);
-            Timing.CallDelayed(28f, () => //a delay of 28 seconds calls the DoorsStuff() exactly after the broadcast ends
+            Timing.CallDelayed(28f, () => //a delay of 28 seconds calls LockDoors() exactly after the cassie ends
             {
-                DoorsStuff(zone);
+                LockDoors(zone);
             });
             IsEventActive = true;
         }
 
-        public void DoorsStuff(ZoneType zone)
+        public void LockDoors(ZoneType zone)
         {
             switch(zone)
             {
@@ -214,12 +207,12 @@ namespace EventTools.Commands
                     Door.Get(DoorType.Scp096).IsOpen = true; //this has to be open because that's where scientists start
                     break;
                 default:
-                    Log.Info("How in the fuck");
+                    Log.Info("If you're seeing this, open an issue on github (https://github.com/Mikihero/EventTools)");
                     break;
             }
         }
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: Set tickets to 0 and other stuff like that to prevent abuse or smth
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             ClassD.Clear(); //clears both of the player lists before executing the rest of the command to prevent any bad things from happening
             Scientist.Clear();
@@ -236,155 +229,155 @@ namespace EventTools.Commands
                         response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
                         return false;
                     case "com15":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () =>
                         {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "com15", DoorType.GateA);
+                                TPAndWeapons(pl, ItemType.GunCOM15, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "com15", DoorType.GateB);
+                                TPAndWeapons(pl, ItemType.GunCOM15, DoorType.GateB);
                             }
                         });
-                        RemainingStuff(ZoneType.Entrance);
+                        DoorsAndCassie(ZoneType.Entrance);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "com18":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () =>
                         {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "com18", DoorType.GateA);
+                                TPAndWeapons(pl, ItemType.GunCOM18, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "com18", DoorType.GateB);
+                                TPAndWeapons(pl, ItemType.GunCOM18, DoorType.GateB);
                             }
                         });
-                        RemainingStuff(ZoneType.Entrance);
+                        DoorsAndCassie(ZoneType.Entrance);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "fsp9":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "fsp9", DoorType.ServersBottom);
+                                TPAndWeapons(pl, ItemType.GunFSP9, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "fsp9", DoorType.Scp096);
+                                TPAndWeapons(pl, ItemType.GunFSP9, DoorType.Scp096);
                             }
                         });
-                        RemainingStuff(ZoneType.HeavyContainment);
+                        DoorsAndCassie(ZoneType.HeavyContainment);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "crossvec":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "crossvec", DoorType.ServersBottom);
+                                TPAndWeapons(pl, ItemType.GunCrossvec, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "crossvec", DoorType.Scp096);
+                                TPAndWeapons(pl, ItemType.GunCrossvec, DoorType.Scp096);
                             }
                         });
-                        RemainingStuff(ZoneType.HeavyContainment);
+                        DoorsAndCassie(ZoneType.HeavyContainment);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "ak":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "ak", DoorType.ServersBottom);
+                                TPAndWeapons(pl, ItemType.GunAK, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "ak", DoorType.Scp096);
+                                TPAndWeapons(pl, ItemType.GunAK, DoorType.Scp096);
                             }
                         });
-                        RemainingStuff(ZoneType.HeavyContainment);
+                        DoorsAndCassie(ZoneType.HeavyContainment);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "epsilon":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "epsilon", DoorType.ServersBottom);
+                                TPAndWeapons(pl, ItemType.GunE11SR, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "epsilon", DoorType.Scp096);
+                                TPAndWeapons(pl, ItemType.GunE11SR, DoorType.Scp096);
                             }
                         });
-                        RemainingStuff(ZoneType.HeavyContainment);
+                        DoorsAndCassie(ZoneType.HeavyContainment);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "logicer":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "logicer", DoorType.ServersBottom);
+                                TPAndWeapons(pl, ItemType.GunLogicer, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "logicer", DoorType.Scp096);
+                                TPAndWeapons(pl, ItemType.GunLogicer, DoorType.Scp096);
                             }
                         });
-                        RemainingStuff(ZoneType.HeavyContainment);
+                        DoorsAndCassie(ZoneType.HeavyContainment);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "shotgun":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "shotgun", DoorType.GateA);
+                                TPAndWeapons(pl, ItemType.GunShotgun, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "shotgun", DoorType.GateB);
+                                TPAndWeapons(pl, ItemType.GunShotgun, DoorType.GateB);
                             }
                         });
-                        RemainingStuff(ZoneType.Entrance);
+                        DoorsAndCassie(ZoneType.Entrance);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "revolver":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "revolver", DoorType.GateA);
+                                TPAndWeapons(pl, ItemType.GunRevolver, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "revolver", DoorType.GateB);
+                                TPAndWeapons(pl, ItemType.GunRevolver, DoorType.GateB);
                             }
                         });
-                        RemainingStuff(ZoneType.Entrance);
+                        DoorsAndCassie(ZoneType.Entrance);
                         response = "Faction Wars were successfully started!";
                         return true;
                     case "lasergun":
-                        BeforeWeaponsStuff(Player.Get(sender));
+                        PreparePlayers(Player.Get(sender));
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                WeaponsStuff(pl, "lasergun", DoorType.GateA);
+                                TPAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                WeaponsStuff(pl, "lasergun", DoorType.GateB);
+                                TPAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateB);
                             }
                         });
-                        RemainingStuff(ZoneType.Entrance);
+                        DoorsAndCassie(ZoneType.Entrance);
                         response = "Faction Wars were successfully started!";
                         return true;
                     default:

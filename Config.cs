@@ -20,29 +20,29 @@ namespace EventTools
         [Description("The amount of seconds every which the plugin should check if round lock is enabled and send a broadcast accordingly. Default: 300")]
         public float RLReminderTime { get; set; } = 300;
 
-        [Description("Whether or not the EventStart command should cleanup ragdolls. Default: true")]
-        public bool ESCleanupRagdolls { get; set; } = true;
+        [Description("Whether or not the EventPrep command should cleanup ragdolls. Default: true")]
+        public bool EPCleanupRagdolls { get; set; } = true;
 
-        [Description("Whether or not the EventStart command should cleanup items. Default: true")]
-        public bool ESCleanupItems { get; set; } = true;
+        [Description("Whether or not the EventPrep command should cleanup items. Default: true")]
+        public bool EPCleanupItems { get; set; } = true;
 
-        [Description("Whether or not the EventStart command should enable roundlock. Default: true")]
-        public bool ESRoundLock { get; set; } = true;
+        [Description("Whether or not the EventPrep command should enable roundlock. Default: true")]
+        public bool EPRoundLock { get; set; } = true;
 
-        [Description("Whether or not the EventStart command should set MTF and CI tickets to 1 (1 not 0 because at 0 tickets SL will still spawn ~5 people). Default: true")]
-        public bool ESRespawnTickets { get; set; } = true;
+        [Description("Whether or not the EventPrep command should set MTF and CI tickets to 1 (1 not 0 because at 0 tickets SL will still spawn ~5 people). Default: true")]
+        public bool EPRespawnTickets { get; set; } = true;
 
-        [Description("Whether or not the person executing the EventStart command should be forceclassed to tutorial. Default: true")]
-        public bool ESFCToTutorial { get; set; } = true;
+        [Description("Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true")]
+        public bool EPFCToTutorial { get; set; } = true;
 
-        [Description("Whether or not the EventStart command should lock all doors in the facility. Default: true")]
-        public bool ESLockAllDoors { get; set; } = true;
+        [Description("Whether or not the EventPrep command should lock all doors in the facility. Default: true")]
+        public bool EPLockAllDoors { get; set; } = true;
 
-        [Description("Whether or not the person using the EventStart command should have their noclip enabled. Default: true")]
-        public bool ESEnableNoclip { get; set; } = true;
+        [Description("Whether or not the person using the EventPrep command should have their noclip enabled. Default: true")]
+        public bool EPEnableNoclip { get; set; } = true;
 
-        [Description("Whether or not everyone except for the person executing the EventStart command should be forceclassed Class D. Default: true")]
-        public bool ESForceClassEveryone { get; set; } = true;
+        [Description("Whether or not everyone except the person executing the EventPrep command should be forceclassed to Class D. Default: true")]
+        public bool EPForceClassEveryone { get; set; } = true;
 
         [Description("The message sent using CASSIE with the EventCountdown command.")]
         public string ECCassieMessage { get; set; } = "10 9 8 7 6 5 4 3 2 1 start";
@@ -61,9 +61,7 @@ namespace EventTools
 
         [Description("Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false")]
         public bool EWFCEveryoneToSpectator { get; set; } = false;
-
-        [Description ("Whether or not the FactionWars command should cleanup items. Default: true.")]
-        public bool FWCleanupItems { get; set; } = true;
+        
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
         public bool FWDisaableFF { get; set; } = true;
     }
