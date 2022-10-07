@@ -4,7 +4,7 @@
 An SCP:SL EXILED plugin designed to automate several tasks usually done by hand while organizing events.
 
 ### **Commands:**  
-- **EventStart** - Starts the event by: removing all the items and ragdolls, enabling roundlock, setting respawn tickets to 1 (not 0 cause SL will spawn ~5 people when tickets are 0), forceclassing everyone to class d, forceclassing the command sender to tutorial and enabling noclip for them, locking all the doors in the facility (all of the aformentioned can be configured in the config). Useful for preparing the event.  
+- **EventPrep** - Starts the event by: removing all the items and ragdolls, enabling roundlock, setting respawn tickets to 1 (not 0 cause SL will spawn ~5 people when tickets are 0), forceclassing everyone to class d, forceclassing the command sender to tutorial and enabling noclip for them, locking all the doors in the facility (all of the aformentioned can be configured in the config). Useful for explaining the event and doing other prep-related tasks.  
 - **EventExplode** - Teleports everyone to 106 bottom and turns off their god modes, turns off roundlock, and sets off the biggest "firework" in the facility! (they are a bit loud tho, so be careful whilst using!). A fun way to end an event.  
 - **EventCountdown** - Sets off a configurable cassie (by defauly a 10 to 1 countdown). Useful for starting the event.  
 - **LockZone** - Toggles door lock in a specified zone (lcz/hcz/ez/surface/all), if the door was opened then it will be closed too. Useful for preparing the event. 
@@ -29,8 +29,8 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 **45-46** - Teleports everyone to a random room.  
 **47-50** - Deep, and I mean **Deep** fakes a cassie announcement (you can still get a christmast MTF tho). I've spent a lot of time on this one and I'm proud of it.  
   
-- **Deathmatch** - Starts a deathmatch with a specified weapon (com15/com18/fsp9/crossvec/ak/e11/logicer/shotgun/revolver/lasergun), unlocks all the doors in LCZ, then locks doors like: 914, 330, pc room etc., gives everyone heals (usually SCP-500 and a medkit but it differs depending on the chosen weapon), armor and ammo for the chosen weapon, after 1 minute sends a silent cassie with a countdown and then gives everyone the specified weapon. Highly recommended to combine it with the EventStart command since that's the way it was tested and intended to be used. Also turns on FF at the start if for some reason it was off (why would you turn it off?!).
-- **FactionWars** - Divides everyone (except the command's sender) into 2 teams (ClassD'd and Scientists), teleports them into separate rooms, gives them equipment depending on what was specified in the arguments. Turns off friendly fire and after 30s allows everyone to go out and start killing! (the Particle Disruptor was taken into account and it is given at the end of the countdown unlike other weapons). Also disables the elevators indefinitely.  
+- **Deathmatch** - Starts a deathmatch with a specified weapon (com15/com18/fsp9/crossvec/ak/e11/logicer/shotgun/revolver/lasergun), unlocks all the doors in LCZ, then locks doors like: 914, 330, pc room etc., gives everyone heals (usually SCP-500 and a medkit but it differs depending on the chosen weapon), armor and ammo for the chosen weapon, after 1 minute sends a silent cassie with a countdown and then gives everyone the specified weapon. Best used in combination with the EventPrep command. Also turns on FF at the start if for some reason it was off (why would you turn it off?!).
+- **FactionWars** - Divides everyone (except the command's sender) into 2 teams (ClassD'd and Scientists), teleports them into separate rooms, gives them equipment depending on what was specified in the arguments. Turns off friendly fire and after 30s allows everyone to go out and start killing! (the Particle Disruptor was taken into account and it is given at the end of the countdown unlike other weapons). Also disables the elevators indefinitely. Best used in combination with the EventPrep command.  
 - **EventFinish** - Finishes the event by enabling back the elevators and returning friendly fire to its original state.  
 **Most of the above commands have aliases that are abreviations of the original command eg. EventEnd == EEnd.**
 
@@ -54,22 +54,22 @@ event_tools:
   r_l_still_enabled: '[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>'
   # The amount of seconds every which the plugin should check if round lock is enabled and send a broadcast accordingly. Default: 300
   r_l_reminder_time: 300
-  # Whether or not the EventStart command should cleanup ragdolls. Default: true
-  e_s_cleanup_ragdolls: true
-  # Whether or not the EventStart command should cleanup items. Default: true
-  e_s_cleanup_items: true
-  # Whether or not the EventStart command should enable roundlock. Default: true
-  e_s_round_lock: true
-  # Whether or not the EventStart command should set MTF and CI tickets to 1 (1 not 0 because at 0 tickets SL will still spawn ~5 people). Default: true
-  e_s_respawn_tickets: true
-  # Whether or not the person executing the EventStart command should be forceclassed to tutorial. Default: true
-  e_s_f_c_to_tutorial: true
-  # Whether or not the EventStart command should lock all doors in the facility. Default: true
-  e_s_lock_all_doors: true
-  # Whether or not the person using the EventStart command should have their noclip enabled. Default: true
-  e_s_enable_noclip: true
-  # Whether or not everyone except for the person executing the EventStart command should be forceclassed Class D. Default: true
-  e_s_force_class_everyone: true
+  # Whether or not the EventPrep command should cleanup ragdolls. Default: true
+  e_p_cleanup_ragdolls: true
+  # Whether or not the EventPrep command should cleanup items. Default: true
+  e_p_cleanup_items: true
+  # Whether or not the EventPrep command should enable roundlock. Default: true
+  e_p_round_lock: true
+  # Whether or not the EventPrep command should set MTF and CI tickets to 1 (1 not 0 because at 0 tickets SL will still spawn ~5 people). Default: true
+  e_p_respawn_tickets: true
+  # Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true
+  e_p_f_c_to_tutorial: true
+  # Whether or not the EventPrep command should lock all doors in the facility. Default: true
+  e_p_lock_all_doors: true
+  # Whether or not the person using the EventPrep command should have their noclip enabled. Default: true
+  e_p_enable_noclip: true
+  # Whether or not everyone except the person executing the EventPrep command should be forceclassed to Class D. Default: true
+  e_p_force_class_everyone: true
   # The message sent using CASSIE with the EventCountdown command.
   e_c_cassie_message: 10 9 8 7 6 5 4 3 2 1 start
   # Whether or not the CASSIE message for the EventCountdown command should have subtitles. Default: true
@@ -88,6 +88,6 @@ event_tools:
   lottery_broadcast: <color=#b00b69><b><size=60>[NUMBER]</size></b></color>
   # Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false
   e_w_f_c_everyone_to_spectator: false
-  # Whether or not the FactionWars command should cleanup items. Default: true.
-  f_w_cleanup_items: true 
+  # Whether or not the FactionWars command should disable friendly fire. Default: true.
+  f_w_disaable_f_f: true
 ```

@@ -8,36 +8,36 @@ using Exiled.API.Enums;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventStart : ICommand
+    class EventPrep : ICommand
     {
-        public string Command { get; } = "EventStart";
+        public string Command { get; } = "EventPrep";
 
-        public string[] Aliases { get; } = { "es" };
+        public string[] Aliases { get; } = { "ep" };
 
-        public string Description { get; } = "Starts the event with parameters specified in the plugins config.";
+        public string Description { get; } = "Allows for easy event preparation.";
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if(Plugin.Instance.Config.ESCleanupRagdolls)
+            if(Plugin.Instance.Config.EPCleanupRagdolls)
             {
                 foreach (Ragdoll doll in UnityEngine.Object.FindObjectsOfType<Ragdoll>())
                     NetworkServer.Destroy(doll.gameObject);
             }
-            if(Plugin.Instance.Config.ESCleanupItems)
+            if(Plugin.Instance.Config.EPCleanupItems)
             {
                 foreach (Pickup item in Map.Pickups)
                     item.Destroy();
             }
-            if(Plugin.Instance.Config.ESRoundLock)
+            if(Plugin.Instance.Config.EPRoundLock)
             {
                 Round.IsLocked = true;
             }
-            if(Plugin.Instance.Config.ESRespawnTickets)
+            if(Plugin.Instance.Config.EPRespawnTickets)
             {
                 Respawn.NtfTickets = 1;
                 Respawn.ChaosTickets = 1;
             }
-            if(Plugin.Instance.Config.ESForceClassEveryone)
+            if(Plugin.Instance.Config.EPForceClassEveryone)
             { 
                 foreach (Player player in Player.List)
                 {
@@ -45,19 +45,19 @@ namespace EventTools.Commands
                     player.SetRole(RoleType.ClassD);
                 }
             }
-            if(Plugin.Instance.Config.ESFCToTutorial)
+            if(Plugin.Instance.Config.EPFCToTutorial)
             {
                 Player.Get(sender).SetRole(RoleType.Tutorial);
             }
-            if (Plugin.Instance.Config.ESLockAllDoors)
+            if(Plugin.Instance.Config.EPLockAllDoors)
             {
                 Door.LockAll(9999, DoorLockType.AdminCommand);
             }
-            if (Plugin.Instance.Config.ESEnableNoclip)
+            if(Plugin.Instance.Config.EPEnableNoclip)
             {
                 Player.Get(sender).NoClipEnabled = true;
             }
-            response = "The event has been succesfully started.";
+            response = "May the event preparation begin!";
             return true;
         }
     }

@@ -12,7 +12,7 @@ namespace EventTools
     {
         public static Plugin Instance;
         public override Version RequiredExiledVersion => new Version(5, 3, 0);
-        public override Version Version => new Version(2, 0, 0);
+        public override Version Version => new Version(2, 0, 1);
         public override string Author => "Miki_hero";
 
         public static int test = 0;
@@ -60,7 +60,7 @@ namespace EventTools
                         {
                             if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
                             {
-                                pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                                pl.Broadcast(3, message, Broadcast.BroadcastFlags.AdminChat);
                                 Timing.RunCoroutine(RoundLockReminder(), "RoundLockReminder");
                             }
                         }
@@ -76,7 +76,7 @@ namespace EventTools
                         {
                             if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
                             {
-                                pl.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
+                                pl.Broadcast(3, message, Broadcast.BroadcastFlags.AdminChat);
                                 Timing.KillCoroutines("RoundLockReminder");
                             }
                         }
@@ -91,7 +91,7 @@ namespace EventTools
         {
             while(true)
             {
-                yield return Timing.WaitForSeconds(Instance.Config.RLReminderTime); //every x ammount of seconds (determined by config) checks if the round lock is enabled, if so sends a broadcast
+                yield return Timing.WaitForSeconds(Instance.Config.RLReminderTime); //if roundlock has been enabled for 300 (configurable) seconds a broadcast is sent
                 string message = Instance.Config.RLStillEnabled;
                 if (Round.IsLocked)
                 {
