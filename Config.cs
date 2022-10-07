@@ -51,10 +51,28 @@ namespace EventTools
         public bool ECSubtitles { get; set; } = true;
 
         [Description("The message to be broadcasted when using the EventNext command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.")]
-        public string ENextMessage { get; set; } = "<size=40><b><color=#cc9900>In the next round there will be an event:\n</color></b></size><size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
+        public string ENextBC { get; set; } = "<size=40><b><color=#cc9900>In the next round there will be an event:\n</color></b></size><size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
+
+        [Description("Whether or not the EventNext command should send a message to discord, if set to true the ENDiscordWebhookURL value has to be correctly specified. Default: false.")]
+        public bool ENextSendToDiscord { get; set; } = false;
+
+        [Description("The message to be sent via a discord webhook when using the EventNext command. Can be formatted like a normal discord message.")]
+        public string ENextDiscordMessage { get; set; } = "In the next round there will be an event: **{EVENTNAME}**";
+
+        [Description("Discord ID of the role that should be pinged when using the EventNext command. Leave empty to not ping any role.")]
+        public string ENextDiscordRoleID { get; set; } = "";
+
+        [Description("Name of the Webhook used in the EventNext command that's displayed on discord.")]
+        public string ENextWebhookName { get; set; } = "EventNotifier";
+
+        [Description("The Discord Webhook URL via which the EventNext command will send messages.")]
+        public string ENextDiscordWebhookURL { get; set; } = "";
+
+        [Description("The avatar Discord Webhook's avatar URL for the EventNext command.")]
+        public string ENextWebhookAvatarURL { get; set; } = "https://media.giphy.com/media/jzKb8n8n2GC6s0cUB1/giphy.gif";
 
         [Description("The messsage to be broadcasted when using the EventNow command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.")]
-        public string ENowMessage { get; set; } = "<size=40><b><color=#cc9900>Event:\n</color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
+        public string ENowBC { get; set; } = "<size=40><b><color=#cc9900>Event:\n</color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
 
         [Description("The broadcast to be sent whenever the lottery command is used. [NUMBER] will be replaced with the chosen number.")]
         public string LotteryBroadcast { get; set; } = "<color=#b00b69><b><size=60>[NUMBER]</size></b></color>";

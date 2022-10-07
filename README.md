@@ -8,8 +8,8 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 - **EventExplode** - Teleports everyone to 106 bottom and turns off their god modes, turns off roundlock, and sets off the biggest "firework" in the facility! (they are a bit loud tho, so be careful whilst using!). A fun way to end an event.  
 - **EventCountdown** - Sets off a configurable cassie (by defauly a 10 to 1 countdown). Useful for starting the event.  
 - **LockZone** - Toggles door lock in a specified zone (lcz/hcz/ez/surface/all), if the door was opened then it will be closed too. Useful for preparing the event. 
-- **EventNext** - Sends a configurable broadcast informing about a specified event happening next round.  
-- **EventNow** - Sends a configurable broadcast informing about a specified event happening this round.  
+- **EventNext** - Informs people about an event happening next round by sendning a broadcast and a discord message with the configured role mention.
+- **EventNow** - Sends a broadcast informing about a specified event happening this round.  
 - **Lottery** - Spins the lottery wheel displaying the rolled number on the screen and doing something depending on the number.  
   
 **Lottery numbers:**  

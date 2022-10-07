@@ -25,7 +25,7 @@ namespace EventTools.Commands
             else
             {
                 string eventname = string.Join(" ", arguments);
-                string message = Plugin.Instance.Config.ENowMessage.Replace("{EVENTNAME}", eventname);
+                string message = Plugin.Instance.Config.ENowBC.Replace("{EVENTNAME}", eventname);
                 Map.Broadcast(20, message);
                 response = "Broadcast sent!";
                 return true;
