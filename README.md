@@ -8,8 +8,8 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 - **EventExplode** - Teleports everyone to 106 bottom and turns off their god modes, turns off roundlock, and sets off the biggest "firework" in the facility! (they are a bit loud tho, so be careful whilst using!). A fun way to end an event.  
 - **EventCountdown** - Sets off a configurable cassie (by defauly a 10 to 1 countdown). Useful for starting the event.  
 - **LockZone** - Toggles door lock in a specified zone (lcz/hcz/ez/surface/all), if the door was opened then it will be closed too. Useful for preparing the event. 
-- **EventNext** - Sends a configurable broadcast informing about a specified event happening next round.  
-- **EventNow** - Sends a configurable broadcast informing about a specified event happening this round.  
+- **EventNext** - Informs people about an event happening next round by sendning a broadcast and a discord message with the configured role mention.
+- **EventNow** - Sends a broadcast informing about a specified event happening this round.  
 - **Lottery** - Spins the lottery wheel displaying the rolled number on the screen and doing something depending on the number.  
   
 **Lottery numbers:**  
@@ -44,7 +44,7 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 ### Default config:
 ```yaml
 event_tools:
-  # Enables or disables the plugin.
+ # Enables or disables the plugin.
   is_enabled: true
   # The message sent when someone enables the RoundLock, can be formatted like a normal SL broadcast.
   r_l_enabled_message: '[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#50c878>RoundLock</color><color=#ffffff> has been </color><color=#00ffff>enabled.</color>'
@@ -75,12 +75,24 @@ event_tools:
   # Whether or not the CASSIE message for the EventCountdown command should have subtitles. Default: true
   e_c_subtitles: true
   # The message to be broadcasted when using the EventNext command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.
-  e_next_message: >-
+  e_next_b_c: >-
     <size=40><b><color=#cc9900>In the next round there will be an event:
 
     </color></b></size><size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>
+  # Whether or not the EventNext command should send a message to discord, if set to true the ENDiscordWebhookURL value has to be correctly specified. Default: false.
+  e_next_send_to_discord: false
+  # The message to be sent via a discord webhook when using the EventNext command. Can be formatted like a normal discord message.
+  e_next_discord_message: 'In the next round there will be an event: **{EVENTNAME}**'
+  # Discord ID of the role that should be pinged when using the EventNext command. Leave empty to not ping any role.
+  e_next_discord_role_i_d: ''
+  # Name of the Webhook used in the EventNext command that's displayed on discord.
+  e_next_webhook_name: EventNotifier
+  # The Discord Webhook URL via which the EventNext command will send messages.
+  e_next_discord_webhook_u_r_l: ''
+  # The avatar Discord Webhook's avatar URL for the EventNext command.
+  e_next_webhook_avatar_u_r_l: https://media.giphy.com/media/jzKb8n8n2GC6s0cUB1/giphy.gif
   # The messsage to be broadcasted when using the EventNow command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.
-  e_now_message: >-
+  e_now_b_c: >-
     <size=40><b><color=#cc9900>Event:
 
     </color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>
