@@ -97,18 +97,8 @@ namespace EventTools
 
         [Description("Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false")]
         public bool EWFCEveryoneToSpectator { get; set; } = false;
-<<<<<<< HEAD
 
-        [Description ("Whether or not the FactionWars command should cleanup items. Default: true.")]
-        public bool FWCleanupItems { get; set; } = true;
-
-=======
-        
->>>>>>> 47e12182fe7f85e0f470a0145e187e0beb473092
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
         public bool FWDisaableFF { get; set; } = true;
-        
-        [Description("Whether or not the FactionWars command should set tickets to 1 in order to prevent massive respawn waves from disrupting the event. Default: true.")]
-        public bool FWTickets { get; set; } = true;
     }
 }

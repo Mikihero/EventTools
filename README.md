@@ -9,7 +9,7 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 - **EventCountdown** - Sets off a configurable cassie (by defauly a 10 to 1 countdown). Useful for starting the event.  
 - **LockZone** - Toggles door lock in a specified zone (lcz/hcz/ez/surface/all), if the door was opened then it will be closed too. Useful for preparing the event. 
 - **EventNext** - Informs people about an event happening next round by sendning a broadcast and a discord message with the configured role mention.
-- **EventNow** - Sends a broadcast informing about a specified event happening this round.  
+- **EventNow** - Informs people about an event happening this round by sendning a broadcast and a discord message with the configured role mention. 
 - **Lottery** - Spins the lottery wheel displaying the rolled number on the screen and doing something depending on the number.  
   
 **Lottery numbers:**  
@@ -96,6 +96,18 @@ event_tools:
     <size=40><b><color=#cc9900>Event:
 
     </color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>
+  # Whether or not the EventNow command should send a message to discord, if set to true the ENDiscordWebhookURL value has to be correctly specified. Default: false.
+  e_now_send_to_discord: false
+  # The message to be sent via a discord webhook when using the EventNow command. Can be formatted like a normal discord message.
+  e_now_discord_message: 'In the next round there will be an event: **{EVENTNAME}**'
+  # Discord ID of the role that should be pinged when using the EventNow command. Leave empty to not ping any role.
+  e_now_discord_role_i_d: ''
+  # Name of the Webhook used in the EventNow command that's displayed on discord.
+  e_now_webhook_name: EventNotifier
+  # The Discord Webhook URL via which the EventNow command will send messages.
+  e_now_discord_webhook_u_r_l: ''
+  # The avatar Discord Webhook's avatar URL for the EventNow command.
+  e_now_webhook_avatar_u_r_l: https://media.giphy.com/media/jzKb8n8n2GC6s0cUB1/giphy.gif    
   # The broadcast to be sent whenever the lottery command is used. [NUMBER] will be replaced with the chosen number.
   lottery_broadcast: <color=#b00b69><b><size=60>[NUMBER]</size></b></color>
   # Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false
