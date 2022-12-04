@@ -97,7 +97,7 @@ namespace EventTools
 
         [Description("Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false")]
         public bool EWFCEveryoneToSpectator { get; set; } = false;
-        
+
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
         public bool FWDisaableFF { get; set; } = true;
     }
