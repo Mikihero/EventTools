@@ -39,7 +39,18 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 - If roundlock is enabled for 5 minutes (configurable) then a broadcast dressed like an AC message is sent reminding everyone about it.
 
 ### **Permissions:**
-- et.roundlockinfo - allows the player to see the broadcast sent whenever RL is toggled or enabled for 5 minutes.
+- et.roundlockinfo - allows the player to see the broadcast sent whenever RL is toggled or left enabled for 5 minutes.
+- et.dm - grants access to the Deathmatch command
+- et.ecount - grant access to the EventCountdown command
+- et.eexplode - grants access to the EventExplode command
+- et.efinish - grants access to the EventFinish command
+- et.enext - grants access to the EventNext command
+- et.enow - grants access to the EventNow command
+- et.eprep - grants access to the EvetPrep command
+- et.ewin - grants access to the EventWin command
+- et.fwars - grants access to the FactionWars command
+- et.lzone - grants access to the LockZone command
+- et.lottery - grants access to the Lottery command
 
 ### Default config:
 ```yaml
