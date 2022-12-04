@@ -5,6 +5,7 @@ using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
 using Exiled.API.Features.Items;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -214,6 +215,11 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.fwars"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
             ClassD.Clear(); //clears both of the player lists before executing the rest of the command to prevent any bad things from happening
             Scientist.Clear();
             if (arguments.Count < 1)

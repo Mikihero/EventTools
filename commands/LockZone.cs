@@ -2,6 +2,7 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -18,6 +19,11 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.lzone"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
             if (arguments.Count != 1)
             {
                 response = "Incorrect usage.";

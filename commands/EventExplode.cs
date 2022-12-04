@@ -2,6 +2,7 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -16,7 +17,12 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            foreach(Player player in Player.List)
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.eexplode"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
+            foreach (Player player in Player.List)
             {
                 player.Teleport(Door.Get(DoorType.Scp106Bottom));
                 player.IsGodModeEnabled = false;

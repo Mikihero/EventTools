@@ -3,6 +3,7 @@ using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
 using MEC;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -17,7 +18,7 @@ namespace EventTools.Commands
 
         public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
 
-        public void SetDoorsAndFF() //TODO: add a switch with an option of choosing a zone
+        public void SetDoorsAndFF() //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
         {
             Server.FriendlyFire = true;
             Door.UnlockAll(ZoneType.LightContainment);
@@ -121,9 +122,13 @@ namespace EventTools.Commands
                 }
             });
         }
-
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.dm"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
             if (arguments.Count < 1)
             {
                 response = "Incorrect usage.";

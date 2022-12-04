@@ -4,6 +4,7 @@ using Exiled.API.Features.Items;
 using Exiled.API.Features;
 using Mirror;
 using Exiled.API.Enums;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -18,7 +19,12 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if(Plugin.Instance.Config.EPCleanupRagdolls)
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.eprep"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
+            if (Plugin.Instance.Config.EPCleanupRagdolls)
             {
                 foreach (Ragdoll doll in UnityEngine.Object.FindObjectsOfType<Ragdoll>())
                     NetworkServer.Destroy(doll.gameObject);

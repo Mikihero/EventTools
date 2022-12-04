@@ -6,6 +6,7 @@ using Exiled.API.Enums;
 using MEC;
 using UnityEngine;
 using Exiled.API.Features.Items;
+using Exiled.Permissions.Extensions;
 
 namespace EventTools.Commands
 {
@@ -20,6 +21,11 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
+            if (!Permissions.CheckPermission(Player.Get(sender), "et.lottery"))
+            {
+                response = "You don't have permission to use this command.";
+                return false;
+            }
             System.Random Rd = new System.Random();
             int lotteryTicket = Rd.Next(1, 51);
             string message = Plugin.Instance.Config.LotteryBroadcast.Replace("[NUMBER]", lotteryTicket.ToString());
