@@ -8,6 +8,9 @@ namespace EventTools
         [Description("Enables or disables the plugin.")]
         public bool IsEnabled { get; set; } = true;
 
+        [Description("Whether or not debug messages should be shown in the console.")]
+        public bool Debug { get; set; } = false;
+
         [Description("The message sent when someone enables the RoundLock, can be formatted like a normal SL broadcast.")]
         public string RLEnabledMessage { get; set; } = "[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#50c878>RoundLock</color><color=#ffffff> has been </color><color=#00ffff>enabled.</color>";
 
@@ -34,6 +37,9 @@ namespace EventTools
 
         [Description("Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true")]
         public bool EPFCToTutorial { get; set; } = true;
+
+        [Description("Whether or not the person executing the EventPrep command should be teleported to the old Tutorial Tower")]
+        public bool EPTpToTower { get; set; } = true;
 
         [Description("Whether or not the EventPrep command should lock all doors in the facility. Default: true")]
         public bool EPLockAllDoors { get; set; } = true;

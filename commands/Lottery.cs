@@ -7,6 +7,8 @@ using MEC;
 using UnityEngine;
 using Exiled.API.Features.Items;
 using Exiled.Permissions.Extensions;
+using Exiled.API.Features.Pickups;
+using PlayerRoles;
 
 namespace EventTools.Commands
 {
@@ -50,11 +52,11 @@ namespace EventTools.Commands
                         int HealToGive = Rd.Next(1, 6);
                         switch (HealToGive)
                         {
-                            case 1: Item.Create(ItemType.Painkillers).Spawn(pl.Position + Vector3.up); break;
-                            case 2: Item.Create(ItemType.Painkillers).Spawn(pl.Position + Vector3.up); break;
-                            case 3: Item.Create(ItemType.Medkit).Spawn(pl.Position + Vector3.up); break;
-                            case 4: Item.Create(ItemType.Adrenaline).Spawn(pl.Position + Vector3.up); break;
-                            case 5: Item.Create(ItemType.SCP500).Spawn(pl.Position + Vector3.up); break;
+                            case 1:
+                            case 2: Pickup.CreateAndSpawn(ItemType.Painkillers, pl.Position + Vector3.up, new Quaternion(0, 0, 0, 0)); break;
+                            case 3: Pickup.CreateAndSpawn(ItemType.Medkit, pl.Position + Vector3.up, new Quaternion(0, 0, 0, 0)); break;
+                            case 4: Pickup.CreateAndSpawn(ItemType.Adrenaline, pl.Position + Vector3.up, new Quaternion(0, 0, 0, 0)); break;
+                            case 5: Pickup.CreateAndSpawn(ItemType.SCP500, pl.Position + Vector3.up, new Quaternion(0, 0, 0, 0)); break;
                         }
                     }
                     break;
@@ -71,12 +73,12 @@ namespace EventTools.Commands
                 case 13:
                 case 14:
                     Map.Broadcast(2, message);
-                    Player.List.ToList().RandomItem().ApplyRandomEffect(3);
+                    Player.List.ToList().RandomItem().ApplyRandomEffect(EffectCategory.Positive, 3, true);
                     break;
                 case 15:
                 case 16:
                     Map.Broadcast(2, message);
-                    Item.Create(ItemType.KeycardContainmentEngineer).Spawn(Room.List.ToList().RandomItem().Position + Vector3.up);
+                    Pickup.CreateAndSpawn(ItemType.Painkillers, Room.List.ToList().RandomItem().Position + Vector3.up, new Quaternion(0, 0, 0, 0));
                     break;
                 case 17:
                 case 18:
@@ -159,7 +161,7 @@ namespace EventTools.Commands
                     switch (RandomCassie)
                     {
                         case 1:
-                            switch (Player.Get(Team.SCP).Count())
+                            switch (Player.Get(Team.SCPs).Count())
                             {
                                 case 0:
                                     Cassie.MessageTranslated("MTFunit Epsilon 11 designated Nato_B 14 HasEntered Allremaining NoSCPsLeft", "Mobile Task Force Unit Epsilon-11 designated Bravo 14 has entered the facility. All remaining personnel are advised to proceed with standard evacuation protocols until an MTF squad reaches your destination. Substantial threat to safety remains within the facility -- exercise caution.");
@@ -168,7 +170,7 @@ namespace EventTools.Commands
                                     Cassie.MessageTranslated("MTFunit Epsilon 11 designated Nato_B 14 HasEntered Allremaining AwaitingRecontainment 1 ScpSubject", "Mobile Task Force Unit  Epsilon-11 designated Bravo 14 has entered the facility. All remaining personnel are advised to proceed with standard evacuation protocols until an MTF squad reaches your destination. Awaiting re-containemnt of: 1 SCP subject.");
                                     break;
                                 default:
-                                    Cassie.MessageTranslated($"MTFunit Epsilon 11 designated Nato_B 14 HasEntered Allremaining AwaitingRecontainment {Player.Get(Team.SCP).Where(p => p.Role != RoleType.Scp0492).Count()} ScpSubjects", $"Mobile Task Force Unit  Epsilon-11 designated Bravo 14 has entered the facility. All remaining personnel are advised to proceed with standard evacuation protocols until an MTF squad reaches your destination. Awaiting re-containemnt of: {Player.Get(Team.SCP).Where(p => p.Role != RoleType.Scp0492).Count()} SCP subjects.");
+                                    Cassie.MessageTranslated($"MTFunit Epsilon 11 designated Nato_B 14 HasEntered Allremaining AwaitingRecontainment {Player.Get(Team.SCPs).Where(p => p.Role != RoleTypeId.Scp0492).Count()} ScpSubjects", $"Mobile Task Force Unit  Epsilon-11 designated Bravo 14 has entered the facility. All remaining personnel are advised to proceed with standard evacuation protocols until an MTF squad reaches your destination. Awaiting re-containemnt of: {Player.Get(Team.SCPs).Where(p => p.Role != RoleTypeId.Scp0492).Count()} SCP subjects.");
                                     break;
                             }
                             break;
@@ -178,12 +180,12 @@ namespace EventTools.Commands
                             Timing.CallDelayed(21.5f, () => {
                                 Map.TurnOffAllLights(10, ZoneType.HeavyContainment);
                                 Door.LockAll(10, ZoneType.HeavyContainment, DoorLockType.NoPower);
-                                if (Player.Get(RoleType.Scp079).Count() > 0)
+                                if (Player.Get(RoleTypeId.Scp079).Count() > 0)
                                 {
-                                    if (Player.Get(RoleType.ClassD).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by class D personnel");
-                                    else if (Player.Get(Team.CHI).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by Chaos Insurgency");
-                                    else if (Player.Get(Team.MTF).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully . containment unit NATO_B 14");
-                                    else if (Player.Get(Team.RSC).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by science personnel");
+                                    if (Player.Get(RoleTypeId.ClassD).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by class D personnel");
+                                    else if (Player.Get(Team.ChaosInsurgency).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by Chaos Insurgency");
+                                    else if (Player.Get(Team.FoundationForces).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully . containment unit NATO_B 14");
+                                    else if (Player.Get(Team.Scientists).Count() > 0) Cassie.Message("SCP 0 7 9 contained successfully by science personnel");
                                     else Cassie.Message("scp 0 7 9 successfully terminated . termination cause unspecified");
                                 }
                                 else
@@ -195,14 +197,14 @@ namespace EventTools.Commands
                             });
                             break;
                         case 3:
-                            Cassie.Message($"Xmas_epsilon11 NATO_B 14 Xmas_hasentered {Player.Get(Team.SCP).Where(p => p.Role != RoleType.Scp0492).Count()} xmas_scpsubjects");
+                            Cassie.Message($"Xmas_epsilon11 NATO_B 14 Xmas_hasentered {Player.Get(Team.SCPs).Where(p => p.Role != RoleTypeId.Scp0492).Count()} xmas_scpsubjects");
                             break;
                         case 4:
-                            if (Player.Get(RoleType.Scp173).Count() > 0) Cassie.MessageTranslated("SCP 1 7 3 successfully terminated by Automatic Security System", "SCP-173 successfully terminated by Automatic Security System.");
-                            else if (Player.Get(RoleType.Scp93953).Count() > 0 || Player.Get(RoleType.Scp93989).Count() > 0) Cassie.MessageTranslated("SCP 9 3 9 successfully terminated by Automatic Security System", "SCP-939 successfully terminated by Automatic Security System.");
-                            else if (Player.Get(RoleType.Scp096).Count() > 0) Cassie.MessageTranslated("SCP 0 9 6 successfully terminated by Automatic Security System", "SCP-096 successfully terminated by Automatic Security System.");
-                            else if (Player.Get(RoleType.Scp106).Count() > 0) Cassie.MessageTranslated("SCP 1 0 6 successfully terminated by Automatic Security System", "SCP-106 successfully terminated by Automatic Security System.");
-                            else if (Player.Get(RoleType.Scp049).Count() > 0) Cassie.MessageTranslated("SCP 0 4 9 successfully terminated by Automatic Security System", "SCP-049 successfully terminated by Automatic Security System.");
+                            if (Player.Get(RoleTypeId.Scp173).Count() > 0) Cassie.MessageTranslated("SCP 1 7 3 successfully terminated by Automatic Security System", "SCP-173 successfully terminated by Automatic Security System.");
+                            else if (Player.Get(RoleTypeId.Scp939).Count() > 0) Cassie.MessageTranslated("SCP 9 3 9 successfully terminated by Automatic Security System", "SCP-939 successfully terminated by Automatic Security System.");
+                            else if (Player.Get(RoleTypeId.Scp096).Count() > 0) Cassie.MessageTranslated("SCP 0 9 6 successfully terminated by Automatic Security System", "SCP-096 successfully terminated by Automatic Security System.");
+                            else if (Player.Get(RoleTypeId.Scp106).Count() > 0) Cassie.MessageTranslated("SCP 1 0 6 successfully terminated by Automatic Security System", "SCP-106 successfully terminated by Automatic Security System.");
+                            else if (Player.Get(RoleTypeId.Scp049).Count() > 0) Cassie.MessageTranslated("SCP 0 4 9 successfully terminated by Automatic Security System", "SCP-049 successfully terminated by Automatic Security System.");
                             else Cassie.Message("pitch_0.1 .g6 pitch_0.2 .g6 pitch_0.3 .g6 pitch_0.4 .g6 pitch_0.5 .g6", false, false);
                             break;
                     }

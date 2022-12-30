@@ -6,6 +6,7 @@ using Exiled.API.Features;
 using Exiled.API.Enums;
 using Exiled.API.Features.Items;
 using Exiled.Permissions.Extensions;
+using PlayerRoles;
 
 namespace EventTools.Commands
 {
@@ -57,7 +58,7 @@ namespace EventTools.Commands
                 pl.SetAmmo(AmmoType.Nato556, 0);
                 pl.SetAmmo(AmmoType.Nato762, 0);
                 pl.SetAmmo(AmmoType.Nato9, 0);
-                pl.SetRole(RoleType.ClassD);
+                pl.Role.Set(RoleTypeId.ClassD);
                 pl.SetAmmo(AmmoType.Ammo12Gauge, 0); //done again in case a plugin like commonutils is used to set the starting ammo of a class
                 pl.SetAmmo(AmmoType.Ammo44Cal, 0);
                 pl.SetAmmo(AmmoType.Nato556, 0);
@@ -72,7 +73,7 @@ namespace EventTools.Commands
                 pl.SetAmmo(AmmoType.Nato556, 0);
                 pl.SetAmmo(AmmoType.Nato762, 0);
                 pl.SetAmmo(AmmoType.Nato9, 0);
-                pl.SetRole(RoleType.ClassD);
+                pl.Role.Set(RoleTypeId.ClassD);
                 pl.SetAmmo(AmmoType.Ammo12Gauge, 0); //done again in case a plugin like commonutils is used to set the starting ammo of a class
                 pl.SetAmmo(AmmoType.Ammo44Cal, 0);
                 pl.SetAmmo(AmmoType.Nato556, 0);
@@ -189,7 +190,8 @@ namespace EventTools.Commands
             {
                 case ZoneType.Entrance:
                     Door.UnlockAll();
-                    Door.Get(DoorType.CheckpointEntrance).ChangeLock(DoorLockType.AdminCommand); //Locking all the rooms that could be abused
+                    Door.Get(DoorType.CheckpointEzHczA).ChangeLock(DoorLockType.AdminCommand); //Locking all the rooms that could be abused
+                    Door.Get(DoorType.CheckpointEzHczB).ChangeLock(DoorLockType.AdminCommand); 
                     Door.Get(DoorType.Intercom).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.GateA).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.GateB).ChangeLock(DoorLockType.AdminCommand);
@@ -200,7 +202,8 @@ namespace EventTools.Commands
                     Door.Get(DoorType.HczArmory).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.CheckpointLczA).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.CheckpointLczB).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.CheckpointEntrance).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.CheckpointEzHczA).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.CheckpointEzHczB).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.Scp079First).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.Scp106Primary).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.Scp106Secondary).ChangeLock(DoorLockType.AdminCommand);

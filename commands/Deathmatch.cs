@@ -12,6 +12,7 @@ namespace EventTools.Commands
     {
         public string Command => "Deathmatch";
 
+
         public string[] Aliases => new string[] { "dm" };
 
         public string Description => "Starts a Deathmatch";

@@ -2,6 +2,7 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
+using PlayerRoles;
 
 namespace EventTools.Commands
 {
@@ -40,12 +41,12 @@ namespace EventTools.Commands
                 {
                     if (Plugin.Instance.Config.EWFCEveryoneToSpectator)
                     {
-                        foreach (Player pl in Player.List) pl.SetRole(RoleType.Spectator);
+                        foreach (Player pl in Player.List) pl.Role.Set(RoleTypeId.Spectator);
                     }
-                    Player.Get(sender).SetRole(RoleType.ClassD);
-                    target.SetRole(RoleType.ClassD);
-                    Player.Get(sender).SetRole(RoleType.Tutorial);
-                    target.SetRole(RoleType.Tutorial);
+                    Player.Get(sender).Role.Set(RoleTypeId.ClassD);
+                    target.Role.Set(RoleTypeId.ClassD);
+                    Player.Get(sender).Role.Set(RoleTypeId.Tutorial);
+                    target.Role.Set(RoleTypeId.Tutorial);
                     response = "Success!";
                     return true;
                 }
