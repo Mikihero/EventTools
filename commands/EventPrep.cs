@@ -69,7 +69,7 @@ namespace EventTools.Commands
             }
             if (Plugin.Instance.Config.EPLockAllDoors)
             {
-                //Door.LockAll(9999, DoorLockType.AdminCommand);
+                Door.LockAll(9999, DoorLockType.AdminCommand);
             }
             if (Plugin.Instance.Config.EPEnableNoclip)
             {
