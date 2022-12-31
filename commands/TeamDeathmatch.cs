@@ -23,7 +23,6 @@ namespace EventTools.Commands
 
         public static HashSet<Player> ClassD = new HashSet<Player> { };
         public static HashSet<Player> Scientist = new HashSet<Player> { };
-        public static bool IsEventActive = false;
 
         public void PreparePlayers(Player commandSender)
         {
@@ -167,7 +166,7 @@ namespace EventTools.Commands
                     });
                     break;
                 default:
-                    Log.Info("If you're seeing this, open an issue on github (https://github.com/Mikihero/EventTools)");
+                    Log.Info("If you're seeing this, open an issue on github (https://github.com/Mikihero/EventTools). Method: TPAndWeapons");
                     break;
             }
             
@@ -181,7 +180,6 @@ namespace EventTools.Commands
             {
                 LockDoors(zone);
             });
-            IsEventActive = true;
         }
 
         public void LockDoors(ZoneType zone)
@@ -216,7 +214,7 @@ namespace EventTools.Commands
             }
         }
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: rewrite everything from 233 to allow for user chosen zones
         {
             if (!Permissions.CheckPermission(Player.Get(sender), "et.fwars"))
             {

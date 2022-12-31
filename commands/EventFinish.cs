@@ -29,7 +29,7 @@ namespace EventTools.Commands
                 return false;
             }
             Server.FriendlyFire = FriendlyFireState;
-            FactionWars.IsEventActive = false;
+            EventPrep.IsEventActive = false;
             response = "Re-enabled the elevators!";
             return true;   
         }
