@@ -2,9 +2,13 @@
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using Exiled.API.Extensions;
 using MEC;
 using Exiled.Permissions.Extensions;
 using System.Linq;
+using PlayerRoles;
+using Exiled.API.Features.Items;
+using Exiled.API.Features.Pickups;
 
 namespace EventTools.Commands
 {
@@ -137,165 +141,33 @@ namespace EventTools.Commands
                 response = "Incorrect usage.";
                 return false;
             }
-            bool parsedCorrectly = Enum.TryParse(arguments.At(0), true, out Team team);
-            switch (arguments.At(0))
+            if(arguments.At(0) == "weapons")
             {
-                case "weapons":
-                    response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
-                        return false;
-                case "com15":
-                    foreach (Player pl in Player.List)
+                response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
+                return false;
+            }
+            bool parsedCorrectly = Enum.TryParse(arguments.At(0), true, out ItemType weapon);
+            if (!parsedCorrectly || !weapon.IsWeapon())
+            {
+                response = "Incorrect usage.";
+                return false;
+            }
+            else
+            {
+                foreach (Player pl in Player.List)
+                {
+                    if (pl != senderPlr)
                     {
-                        if(pl != senderPlr)
-                        {                                
-                            GiveItems(ItemType.GunCOM15, pl);
-                        }
+                        GiveItems(weapon, pl);
                     }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunCOM15, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "com18":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunCOM18, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunCOM18, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "fsp9":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunFSP9, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunFSP9, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "crossvec":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunCrossvec, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunCrossvec, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "ak":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunAK, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunAK, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "epsilon":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunE11SR, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunE11SR, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "logicer":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunLogicer, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunLogicer, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "shotgun":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunShotgun, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunShotgun, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "revolver":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.GunRevolver, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.GunRevolver, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                case "lasergun":
-                    foreach (Player pl in Player.List)
-                    {
-                        if (pl != senderPlr)
-                        {
-                            GiveItems(ItemType.ParticleDisruptor, pl);
-                        }
-                    }
-                    SetDoorsAndFF();
-                    Timing.CallDelayed(60f, () =>
-                    {
-                        CassieAndGun(ItemType.ParticleDisruptor, senderPlr);
-                    });
-                    response = "Deathmatch successfully started.";
-                    return true;
-                default:
-                    response = "Incorrect usage.";
-                    return false;
+                }
+                SetDoorsAndFF();
+                Timing.CallDelayed(60f, () =>
+                {
+                    CassieAndGun(weapon, senderPlr);
+                });
+                response = "Deathmatch started successfully.";
+                return true;
             }
         }
     }
