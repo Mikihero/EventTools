@@ -38,7 +38,7 @@ namespace EventTools
         [Description("Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true")]
         public bool EPFCToTutorial { get; set; } = true;
 
-        [Description("Whether or not the person executing the EventPrep command should be teleported to the old Tutorial Tower")]
+        [Description("Whether or not the person executing the EventPrep command should be teleported to the old Tutorial Tower. Default: true")]
         public bool EPTpToTower { get; set; } = true;
 
         [Description("Whether or not the EventPrep command should lock all doors in the facility. Default: true")]
@@ -49,6 +49,9 @@ namespace EventTools
 
         [Description("Whether or not everyone except the person executing the EventPrep command should be forceclassed to Class D. Default: true")]
         public bool EPForceClassEveryone { get; set; } = true;
+
+        [Description("Whether or not the EventPrep command should disable elevators untill they're enebaled again with the EventFinish command. Default: true")]
+        public bool EPDisableElevators { get; set; } = true;
 
         [Description("The message sent using CASSIE with the EventCountdown command.")]
         public string ECCassieMessage { get; set; } = "10 9 8 7 6 5 4 3 2 1 start";

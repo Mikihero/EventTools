@@ -1,15 +1,12 @@
 ﻿using CommandSystem;
-using System;
-using Exiled.API.Features.Items;
-using Exiled.API.Features;
-using Mirror;
 using Exiled.API.Enums;
+using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using Exiled.API.Features.Pickups;
-using PlayerRoles;
-using Exiled.API.Features.Roles;
-using PlayerRoles.FirstPersonControl;
 using InventorySystem.Items.Pickups;
+using Mirror;
+using PlayerRoles;
+using PlayerRoles.FirstPersonControl;
+using System;
 using UnityEngine;
 
 namespace EventTools.Commands
@@ -22,6 +19,8 @@ namespace EventTools.Commands
         public string[] Aliases { get; } = { "ep" };
 
         public string Description { get; } = "Allows for easy event preparation.";
+
+        public static bool IsEventActive = false;
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -47,34 +46,38 @@ namespace EventTools.Commands
             {
                 Round.IsLocked = true;
             }
-            if(Plugin.Instance.Config.EPRespawnTickets)
+            if (Plugin.Instance.Config.EPRespawnTickets)
             {
                 Respawn.NtfTickets = 1;
                 Respawn.ChaosTickets = 1;
             }
-            if(Plugin.Instance.Config.EPForceClassEveryone)
-            { 
+            if (Plugin.Instance.Config.EPForceClassEveryone)
+            {
                 foreach (Player player in Player.List)
                 {
                     player.Role.Set(RoleTypeId.Tutorial);
                     player.Role.Set(RoleTypeId.ClassD);
                 }
             }
-            if(Plugin.Instance.Config.EPFCToTutorial)
+            if (Plugin.Instance.Config.EPFCToTutorial)
             {
                 Player.Get(sender).Role.Set(RoleTypeId.Tutorial);
             }
-            if(Plugin.Instance.Config.EPTpToTower)
+            if (Plugin.Instance.Config.EPTpToTower)
             {
                 Player.Get(sender).Teleport(new Vector3(38, 1014, -31));
             }
-            if(Plugin.Instance.Config.EPLockAllDoors)
+            if (Plugin.Instance.Config.EPLockAllDoors)
             {
-                Door.LockAll(9999, DoorLockType.AdminCommand);
+                //Door.LockAll(9999, DoorLockType.AdminCommand);
             }
-            if(Plugin.Instance.Config.EPEnableNoclip)
+            if (Plugin.Instance.Config.EPEnableNoclip)
             {
                 FpcNoclip.PermitPlayer(Player.Get(sender).ReferenceHub);
+            }
+            if (Plugin.Instance.Config.EPDisableElevators)
+            {
+                IsEventActive = true;
             }
             response = "Successfully executed the command.";
             return true;
