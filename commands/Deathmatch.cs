@@ -5,49 +5,21 @@ using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using MEC;
 using Exiled.Permissions.Extensions;
+using UnityEngine;
+using Utf8Json.Internal.Emit;
 
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class Deathmatch : ICommand, IUsageProvider
+    public class Deathmatch : ICommand, IUsageProvider
     {
         public string Command => "Deathmatch";
-
 
         public string[] Aliases => new[] { "dm" };
 
         public string Description => "Starts a Deathmatch";
 
-        public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
-
-        private void SetDoorsAndFF(ZoneType zone) //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
-        {
-            Server.FriendlyFire = true;
-            switch (zone)
-            {
-                case ZoneType.LightContainment:
-                    Door.UnlockAll(ZoneType.LightContainment);
-                    Door.Get(DoorType.Scp914Gate).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.Scp330Chamber).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.Scp330).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.LczCafe).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.LczWc).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.LczArmory).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.Scp173Bottom).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.GR18Gate).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.CheckpointLczA).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.CheckpointLczB).ChangeLock(DoorLockType.AdminCommand);
-                    break;
-                case ZoneType.HeavyContainment:
-                    Door.UnlockAll(ZoneType.HeavyContainment);
-                    Door.Get().ChangeLock(DoorLockType.AdminCommand);
-                    break;
-                case ZoneType.Entrance:
-                    break;
-                case ZoneType.Surface:
-                    break;
-            }
-        }
+        public string[] Usage => new[] {"weapon", "zone", "use <b><u>deathmatch weapons</u></b> to see all the weapons", "use <b><u>deathmatch zones</u></b> to see all the zones"};
 
         private void GiveItems(ItemType weapon, Player pl)
         {
@@ -138,32 +110,44 @@ namespace EventTools.Commands
                     else
                     {
                         pl.AddItem(ItemType.GunE11SR);
-                        pl.AddItem(ItemType.ArmorCombat);
-                        pl.SetAmmo(AmmoType.Nato556, 120);
+                        pl.AddItem(ItemType.ArmorHeavy);
+                        pl.SetAmmo(AmmoType.Nato556, 200);
                     }
                 }
             });
         }
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
-        {
+        { 
             Player senderPlr = Player.Get(sender);
             if (!Player.Get(sender).CheckPermission("et.dm"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
             }
-            if (arguments.Count != 1)
+            if (arguments.Count < 1)
             {
                 response = "Incorrect usage.";
                 return false;
             }
-            if(arguments.At(0) == "weapons")
+
+            if (arguments.Count == 1)
             {
-                response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - com45 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
-                return false;
+                switch (arguments.At(0))
+                {
+                    case "weapons":
+                        response = "<b>Possible weapons:</b> \n - GunCOM15 \n - GunCOM18 \n - GunCom45 \n - GunFSP9 \n - GunCrossvec \n - GunAK \n - GunE11SR \n - GunLogicer \n - GunShotgun \n - GunRevolver \n - ParticleDisruptor";
+                        return false;
+                    case "zones":
+                        response = "<b>Possible zones:</b> \n - LightContainment \n - HeavyContainment \n - Entrance \n - Surface";
+                        return false;
+                    default:
+                        response = "Incorrect usage.";
+                        return false;
+                }
             }
-            bool parsedCorrectly = Enum.TryParse(arguments.At(0), true, out ItemType weapon);
-            if (!parsedCorrectly || !weapon.IsWeapon())
+            bool weaponParsed = Enum.TryParse(arguments.At(0), true, out ItemType weapon);
+            bool zoneParsed = Enum.TryParse(arguments.At(1), true, out ZoneType zone);
+            if (!weaponParsed || !weapon.IsWeapon() || !zoneParsed)
             {
                 response = "Incorrect usage.";
                 return false;
@@ -175,7 +159,34 @@ namespace EventTools.Commands
                     GiveItems(weapon, pl);
                 }
             }
-            SetDoorsAndFF();
+            Server.FriendlyFire = true;
+            switch (zone)
+            {
+                case ZoneType.LightContainment:
+                    foreach (DoorType door in Plugin.Instance.Config.DmLCZDoors)
+                    {
+                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    break;
+                case ZoneType.HeavyContainment:
+                    foreach (DoorType door in Plugin.Instance.Config.DmHCZDoors)
+                    {
+                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    break;
+                case ZoneType.Entrance:
+                    foreach (DoorType door in Plugin.Instance.Config.DmEZDoors)
+                    {
+                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    break;
+                case ZoneType.Surface:
+                    foreach (DoorType door in Plugin.Instance.Config.DmSurfaceDoors)
+                    {
+                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    break;
+            }
             Timing.CallDelayed(60f, () =>
             {
                 CassieAndGun(weapon, senderPlr);
