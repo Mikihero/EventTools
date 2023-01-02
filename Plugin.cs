@@ -48,7 +48,7 @@ namespace EventTools
             _eventHandler = null;
         }
 
-        private IEnumerator<float> RoundLockToggle()
+        private static IEnumerator<float> RoundLockToggle()
         {
             while(true)
             {
@@ -89,7 +89,7 @@ namespace EventTools
             // ReSharper disable once IteratorNeverReturns
         }
 
-        private IEnumerator<float> RoundLockReminder()
+        private static IEnumerator<float> RoundLockReminder()
         {
             while(true)
             {
