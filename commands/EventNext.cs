@@ -19,11 +19,11 @@ namespace EventTools.Commands
 
         public string[] Usage { get; set; } = { "event name" };
 
-        private static readonly HttpClient client = new HttpClient();
+        private static readonly HttpClient Client = new HttpClient();
 
-        public static async Task ActuallySendWebhook(StringContent data)
+        static async Task ActuallySendWebhook(StringContent data)
         {
-            HttpResponseMessage responseMessage = await client.PostAsync(Plugin.Instance.Config.ENextDiscordWebhookURL, data);
+            HttpResponseMessage responseMessage = await Client.PostAsync(Plugin.Instance.Config.ENextDiscordWebhookURL, data);
             string responseMessageString = await responseMessage.Content.ReadAsStringAsync();
             if(!responseMessage.IsSuccessStatusCode)
             {
@@ -31,21 +31,21 @@ namespace EventTools.Commands
             }
         }
 
-        public void SendWebHook(string webhookContent)
+        void SendWebHook(string webhookContent)
         {
-            var SuccessWebHook = new
+            var successWebHook = new
             {
                 username = Plugin.Instance.Config.ENextWebhookName,
                 content = webhookContent,
                 avatar_url = Plugin.Instance.Config.ENextWebhookAvatarURL
             };
-            StringContent content = new StringContent(Encoding.UTF8.GetString(Utf8Json.JsonSerializer.Serialize<object>(SuccessWebHook)), Encoding.UTF8, "application/json");
+            StringContent content = new StringContent(Encoding.UTF8.GetString(Utf8Json.JsonSerializer.Serialize<object>(successWebHook)), Encoding.UTF8, "application/json");
             _ = ActuallySendWebhook(content);
         }
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.enext"))
+            if (!Player.Get(sender).CheckPermission("et.enext"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
@@ -57,18 +57,18 @@ namespace EventTools.Commands
             }
             else
             {
-                string eventname = string.Join(" ", arguments);
-                string broadcastMessage = Plugin.Instance.Config.ENextBC.Replace("{EVENTNAME}", eventname);
+                string evenTame = string.Join(" ", arguments);
+                string broadcastMessage = Plugin.Instance.Config.ENextBC.Replace("{EVENTNAME}", evenTame);
                 Map.Broadcast(10, broadcastMessage);
                 if(Plugin.Instance.Config.ENextSendToDiscord)
                 {
-                    if(Plugin.Instance.Config.ENextDiscordRoleID == "" || Plugin.Instance.Config.ENextDiscordRoleID == null)
+                    if(string.IsNullOrEmpty(Plugin.Instance.Config.ENextDiscordRoleID))
                     {
-                        SendWebHook(Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", eventname));
+                        SendWebHook(Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", evenTame));
                     }
                     else
                     {
-                        string message = $"<@&{Plugin.Instance.Config.ENextDiscordRoleID}> {Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", eventname)}";
+                        string message = $"<@&{Plugin.Instance.Config.ENextDiscordRoleID}> {Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", evenTame)}";
                         SendWebHook(message);
                     }
                 }

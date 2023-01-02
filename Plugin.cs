@@ -8,15 +8,15 @@ using server = Exiled.Events.Handlers.Server;
 
 namespace EventTools
 {
-    public class Plugin : Plugin<Config>
+    public abstract class Plugin : Plugin<Config>
     {
         public static Plugin Instance;
         public override Version RequiredExiledVersion => new Version(5, 3, 0);
         public override Version Version => new Version(2, 1, 2, 0);
         public override string Author => "Miki_hero";
 
-        public static int test = 0;
-        private EventHandlers EventHandler;
+        private static int _test;
+        private EventHandlers _eventHandler;
 
         public override void OnEnabled()
         {
@@ -33,61 +33,63 @@ namespace EventTools
             base.OnDisabled();
         }
 
-        public void RegisterEvents()
+        private void RegisterEvents()
         {
-            EventHandler = new EventHandlers();
-            player.Left += EventHandler.OnLeft;
-            server.RoundStarted += EventHandler.OnRoundStart;
-            player.InteractingElevator += EventHandler.OnUsingElevator;
-        }
-        public void UnRegisterEvents()
-        {
-            player.Left -= EventHandler.OnLeft;
-            player.InteractingElevator -= EventHandler.OnUsingElevator;
-            EventHandler = null;
+            _eventHandler = new EventHandlers();
+            player.Left += _eventHandler.OnLeft;
+            server.RoundStarted += _eventHandler.OnRoundStart;
+            player.InteractingElevator += _eventHandler.OnUsingElevator;
         }
 
-        public IEnumerator<float> RoundLockToggle()
+        private void UnRegisterEvents()
+        {
+            player.Left -= _eventHandler.OnLeft;
+            player.InteractingElevator -= _eventHandler.OnUsingElevator;
+            _eventHandler = null;
+        }
+
+        private IEnumerator<float> RoundLockToggle()
         {
             while(true)
             {
                 if (Round.IsLocked)
                 {
                     string message = Instance.Config.RLEnabledMessage;
-                    if (test == 0) //check if the round was already locked, if not send the broadcast
+                    if (_test == 0) //check if the round was already locked, if not send the broadcast
                     {
                         foreach (Player pl in Player.List)
                         {
-                            if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
+                            if (pl.CheckPermission("et.roundlockinfo"))
                             {
                                 pl.Broadcast(3, message, Broadcast.BroadcastFlags.AdminChat);
                                 Timing.RunCoroutine(RoundLockReminder(), "RoundLockReminder");
                             }
                         }
                     }
-                    test = 1;
+                    _test = 1;
                 }
                 else
                 {
                     string message = Instance.Config.RLDisabledMessage;
-                    if (test == 1) //check if the round was already locked, if it was send the broadcast
+                    if (_test == 1) //check if the round was already locked, if it was send the broadcast
                     {
                         foreach (Player pl in Player.List)
                         {
-                            if (Permissions.CheckPermission(pl, "et.roundlockinfo"))
+                            if (pl.CheckPermission("et.roundlockinfo"))
                             {
                                 pl.Broadcast(3, message, Broadcast.BroadcastFlags.AdminChat);
                                 Timing.KillCoroutines("RoundLockReminder");
                             }
                         }
                     }
-                    test = 0;
+                    _test = 0;
                 }
                 yield return Timing.WaitForSeconds(1f);
             }
+            // ReSharper disable once IteratorNeverReturns
         }
 
-        public IEnumerator<float> RoundLockReminder()
+        private IEnumerator<float> RoundLockReminder()
         {
             while(true)
             {
@@ -97,13 +99,14 @@ namespace EventTools
                 {
                     foreach (Player player in Player.List)
                     {
-                        if (Permissions.CheckPermission(player, "AdminChat"))
+                        if (player.CheckPermission("AdminChat"))
                         {
                             player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
                         }
                     }
                 }
             }
+            // ReSharper disable once IteratorNeverReturns
         }
     }
 }

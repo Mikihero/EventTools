@@ -5,10 +5,6 @@ using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using MEC;
 using Exiled.Permissions.Extensions;
-using System.Linq;
-using PlayerRoles;
-using Exiled.API.Features.Items;
-using Exiled.API.Features.Pickups;
 
 namespace EventTools.Commands
 {
@@ -18,13 +14,13 @@ namespace EventTools.Commands
         public string Command => "Deathmatch";
 
 
-        public string[] Aliases => new string[] { "dm" };
+        public string[] Aliases => new[] { "dm" };
 
         public string Description => "Starts a Deathmatch";
 
         public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
 
-        public void SetDoorsAndFF() //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
+        void SetDoorsAndFF() //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
         {
             Server.FriendlyFire = true;
             Door.UnlockAll(ZoneType.LightContainment);
@@ -40,7 +36,7 @@ namespace EventTools.Commands
             Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
         }
 
-        public void GiveItems(ItemType weapon, Player pl)
+        void GiveItems(ItemType weapon, Player pl)
         {
             switch(weapon)
             {
@@ -108,7 +104,7 @@ namespace EventTools.Commands
             }
         }
 
-        public void CassieAndGun(ItemType gun, Player sender)
+        void CassieAndGun(ItemType gun, Player sender)
         {
             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
             Timing.CallDelayed(8f, () =>
@@ -131,7 +127,7 @@ namespace EventTools.Commands
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
             Player senderPlr = Player.Get(sender);
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.dm"))
+            if (!Player.Get(sender).CheckPermission("et.dm"))
             {
                 response = "You don't have permission to use this command.";
                 return false;

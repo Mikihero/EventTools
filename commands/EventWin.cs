@@ -11,7 +11,7 @@ namespace EventTools.Commands
     {
         public string Command => "eventwin";
 
-        public string[] Aliases => new string[] { "ew" };
+        public string[] Aliases => new[] { "ew" };
 
         public string Description => "Forceclasses you and a chosen player to tutorial.";
 
@@ -19,7 +19,7 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.ewin"))
+            if (!Player.Get(sender).CheckPermission("et.ewin"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
@@ -29,28 +29,24 @@ namespace EventTools.Commands
                 response = "Incorrect usage.";
                 return false;
             }
-            else
+
+            Player target = Player.Get(arguments.At(0));
+            if (target == null)
             {
-                Player target = Player.Get(arguments.At(0));
-                if (target == null)
-                {
-                    response = $"Player not found: {arguments.At(0)}";
-                    return false;
-                }
-                else
-                {
-                    if (Plugin.Instance.Config.EWFCEveryoneToSpectator)
-                    {
-                        foreach (Player pl in Player.List) pl.Role.Set(RoleTypeId.Spectator);
-                    }
-                    Player.Get(sender).Role.Set(RoleTypeId.ClassD);
-                    target.Role.Set(RoleTypeId.ClassD);
-                    Player.Get(sender).Role.Set(RoleTypeId.Tutorial);
-                    target.Role.Set(RoleTypeId.Tutorial);
-                    response = "Success!";
-                    return true;
-                }
+                response = $"Player not found: {arguments.At(0)}";
+                return false;
             }
+
+            if (Plugin.Instance.Config.EWFCEveryoneToSpectator)
+            {
+                foreach (Player pl in Player.List) pl.Role.Set(RoleTypeId.Spectator);
+            }
+            Player.Get(sender).Role.Set(RoleTypeId.ClassD);
+            target.Role.Set(RoleTypeId.ClassD);
+            Player.Get(sender).Role.Set(RoleTypeId.Tutorial);
+            target.Role.Set(RoleTypeId.Tutorial);
+            response = "Success!";
+            return true;
         }
     }
 }

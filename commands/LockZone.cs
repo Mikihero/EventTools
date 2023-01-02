@@ -19,7 +19,7 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.lzone"))
+            if (!Player.Get(sender).CheckPermission("et.lzone"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
