@@ -9,15 +9,15 @@ using Exiled.Permissions.Extensions;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventNext : ICommand, IUsageProvider
+    public class EventNext : ICommand, IUsageProvider
     {
         public string Command => "EventNext";
 
-        public string[] Aliases { get; set; } = { "enext" };
+        public string[] Aliases { get; } = { "enext" };
 
         public string Description => "Informs people about an event happening next round.";
 
-        public string[] Usage { get; set; } = { "event name" };
+        public string[] Usage { get; } = { "event name" };
 
         private static readonly HttpClient Client = new HttpClient();
 
@@ -31,7 +31,7 @@ namespace EventTools.Commands
             }
         }
 
-        void SendWebHook(string webhookContent)
+        private void SendWebHook(string webhookContent)
         {
             var successWebHook = new
             {
@@ -72,7 +72,7 @@ namespace EventTools.Commands
                         SendWebHook(message);
                     }
                 }
-                response = "Successfuly informed people about the event!";
+                response = "Successfully informed people about the event!";
                 return true;
             }
         }

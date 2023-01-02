@@ -20,43 +20,63 @@ namespace EventTools.Commands
 
         public string[] Usage { get; set; } = {"weapon", "use <b><u>deathmatch weapons</u></b> to see all the weapons"};
 
-        void SetDoorsAndFF() //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
+        private void SetDoorsAndFF(ZoneType zone) //TODO: add a switch with an option of choosing a zone, use UnityEngine.Random.Range() instead of System.Random.Next(), this applies for the entire project
         {
             Server.FriendlyFire = true;
-            Door.UnlockAll(ZoneType.LightContainment);
-            Door.Get(DoorType.Scp914Gate).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.Scp330Chamber).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.Scp330).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.LczCafe).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.LczWc).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.LczArmory).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.Scp173Bottom).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.GR18Gate).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.CheckpointLczA).Lock(9999, DoorLockType.AdminCommand);
-            Door.Get(DoorType.CheckpointLczB).Lock(9999, DoorLockType.AdminCommand);
+            switch (zone)
+            {
+                case ZoneType.LightContainment:
+                    Door.UnlockAll(ZoneType.LightContainment);
+                    Door.Get(DoorType.Scp914Gate).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.Scp330Chamber).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.Scp330).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.LczCafe).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.LczWc).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.LczArmory).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.Scp173Bottom).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.GR18Gate).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.CheckpointLczA).ChangeLock(DoorLockType.AdminCommand);
+                    Door.Get(DoorType.CheckpointLczB).ChangeLock(DoorLockType.AdminCommand);
+                    break;
+                case ZoneType.HeavyContainment:
+                    Door.UnlockAll(ZoneType.HeavyContainment);
+                    Door.Get().ChangeLock(DoorLockType.AdminCommand);
+                    break;
+                case ZoneType.Entrance:
+                    break;
+                case ZoneType.Surface:
+                    break;
+            }
         }
 
-        void GiveItems(ItemType weapon, Player pl)
+        private void GiveItems(ItemType weapon, Player pl)
         {
             switch(weapon)
             {
                 case ItemType.GunCOM15:
                     pl.AddItem(ItemType.SCP500);
                     pl.AddItem(ItemType.Medkit);
-                    pl.AddAmmo(AmmoType.Nato9, 100);
                     pl.AddItem(ItemType.ArmorCombat);
+                    pl.AddAmmo(AmmoType.Nato9, 100);
                     break;
                 case ItemType.GunCOM18:
                     pl.AddItem(ItemType.SCP500);
                     pl.AddItem(ItemType.Medkit);
-                    pl.AddAmmo(AmmoType.Nato9, 120);
                     pl.AddItem(ItemType.ArmorCombat);
+                    pl.AddAmmo(AmmoType.Nato9, 120);
+                    break;
+                case ItemType.GunCom45:
+                    pl.AddItem(ItemType.SCP500, 2);
+                    pl.AddItem(ItemType.Medkit);
+                    pl.AddItem(ItemType.Adrenaline);
+                    pl.AddItem(ItemType.ArmorHeavy);
+                    pl.AddAmmo(AmmoType.Nato9, 200);
                     break;
                 case ItemType.GunFSP9:
                     pl.AddItem(ItemType.SCP500);
                     pl.AddItem(ItemType.Medkit);
-                    pl.AddAmmo(AmmoType.Nato9, 200);
                     pl.AddItem(ItemType.ArmorCombat);
+                    pl.AddAmmo(AmmoType.Nato9, 200);
                     break;
                 case ItemType.GunCrossvec:
                     pl.AddItem(ItemType.SCP500);
@@ -104,7 +124,7 @@ namespace EventTools.Commands
             }
         }
 
-        void CassieAndGun(ItemType gun, Player sender)
+        private void CassieAndGun(ItemType gun, Player sender)
         {
             Cassie.Message("10 9 8 7 6 5 4 3 2 1 start", false, false, true);
             Timing.CallDelayed(8f, () =>
@@ -139,7 +159,7 @@ namespace EventTools.Commands
             }
             if(arguments.At(0) == "weapons")
             {
-                response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
+                response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - com45 \n - fsp9 \n - crossvec \n - ak \n - epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun";
                 return false;
             }
             bool parsedCorrectly = Enum.TryParse(arguments.At(0), true, out ItemType weapon);
@@ -148,23 +168,20 @@ namespace EventTools.Commands
                 response = "Incorrect usage.";
                 return false;
             }
-            else
+            foreach (Player pl in Player.List)
             {
-                foreach (Player pl in Player.List)
+                if (pl != senderPlr)
                 {
-                    if (pl != senderPlr)
-                    {
-                        GiveItems(weapon, pl);
-                    }
+                    GiveItems(weapon, pl);
                 }
-                SetDoorsAndFF();
-                Timing.CallDelayed(60f, () =>
-                {
-                    CassieAndGun(weapon, senderPlr);
-                });
-                response = "Deathmatch started successfully.";
-                return true;
             }
+            SetDoorsAndFF();
+            Timing.CallDelayed(60f, () =>
+            {
+                CassieAndGun(weapon, senderPlr);
+            });
+            response = "Deathmatch started successfully.";
+            return true;
         }
     }
 }
