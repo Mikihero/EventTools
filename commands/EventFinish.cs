@@ -10,7 +10,7 @@ namespace EventTools.Commands
     {
         public string Command => "EventFinish";
 
-        public string[] Aliases => new string[] { "EFinish" };
+        public string[] Aliases => new[] { "EFinish" };
 
         public string Description => "Finishes the current event by enabling the elevators and returning friendly fire back to normal.";
 
@@ -18,7 +18,7 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.efinish"))
+            if (!Player.Get(sender).CheckPermission("et.efinish"))
             {
                 response = "You don't have permission to use this command.";
                 return false;

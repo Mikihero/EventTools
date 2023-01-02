@@ -4,7 +4,6 @@ using MEC;
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
-using Exiled.API.Features.Items;
 using Exiled.Permissions.Extensions;
 using PlayerRoles;
 
@@ -21,10 +20,10 @@ namespace EventTools.Commands
 
         public string[] Usage { get; set; } = { "weapon", "use <b><u>factionwars weapons</u></b> to see all the weapons" };
 
-        public static HashSet<Player> ClassD = new HashSet<Player> { };
-        public static HashSet<Player> Scientist = new HashSet<Player> { };
+        public static HashSet<Player> ClassD = new HashSet<Player>();
+        public static HashSet<Player> Scientist = new HashSet<Player>();
 
-        public void PreparePlayers(Player commandSender)
+        private void PreparePlayers(Player commandSender)
         {
             commandSender.AddItem(ItemType.GunE11SR);
             commandSender.AddItem(ItemType.ArmorCombat);
@@ -82,7 +81,7 @@ namespace EventTools.Commands
             }
         }
 
-        public void TPAndWeapons(Player pl, ItemType weapon, DoorType door)
+        private void TpAndWeapons(Player pl, ItemType weapon, DoorType door)
         {
             Door.Get(door).IsOpen = true; //opening the door before teleporting players in to prevent any form of desync's happening
             pl.Teleport(Door.Get(door));
@@ -172,7 +171,7 @@ namespace EventTools.Commands
             
         }
 
-        public void DoorsAndCassie(ZoneType zone)
+        private void DoorsAndCassie(ZoneType zone)
         {
             Door.LockAll(9999, DoorLockType.AdminCommand);
             Cassie.Message("30 29 28 27 26 25 24 23 22 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1 start", false, true, true);
@@ -182,7 +181,7 @@ namespace EventTools.Commands
             });
         }
 
-        public void LockDoors(ZoneType zone)
+        private void LockDoors(ZoneType zone)
         {
             switch(zone)
             {
@@ -216,7 +215,7 @@ namespace EventTools.Commands
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: rewrite everything from 233 to allow for user chosen zones
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.fwars"))
+            if (!Player.Get(sender).CheckPermission("et.fwars"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
@@ -241,11 +240,11 @@ namespace EventTools.Commands
                         {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunCOM15, DoorType.GateA);
+                                TpAndWeapons(pl, ItemType.GunCOM15, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunCOM15, DoorType.GateB);
+                                TpAndWeapons(pl, ItemType.GunCOM15, DoorType.GateB);
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
@@ -257,11 +256,11 @@ namespace EventTools.Commands
                         {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunCOM18, DoorType.GateA);
+                                TpAndWeapons(pl, ItemType.GunCOM18, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunCOM18, DoorType.GateB);
+                                TpAndWeapons(pl, ItemType.GunCOM18, DoorType.GateB);
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
@@ -272,11 +271,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunFSP9, DoorType.ServersBottom);
+                                TpAndWeapons(pl, ItemType.GunFSP9, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunFSP9, DoorType.Scp096);
+                                TpAndWeapons(pl, ItemType.GunFSP9, DoorType.Scp096);
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
@@ -287,11 +286,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunCrossvec, DoorType.ServersBottom);
+                                TpAndWeapons(pl, ItemType.GunCrossvec, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunCrossvec, DoorType.Scp096);
+                                TpAndWeapons(pl, ItemType.GunCrossvec, DoorType.Scp096);
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
@@ -302,11 +301,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunAK, DoorType.ServersBottom);
+                                TpAndWeapons(pl, ItemType.GunAK, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunAK, DoorType.Scp096);
+                                TpAndWeapons(pl, ItemType.GunAK, DoorType.Scp096);
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
@@ -317,11 +316,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunE11SR, DoorType.ServersBottom);
+                                TpAndWeapons(pl, ItemType.GunE11SR, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunE11SR, DoorType.Scp096);
+                                TpAndWeapons(pl, ItemType.GunE11SR, DoorType.Scp096);
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
@@ -332,11 +331,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunLogicer, DoorType.ServersBottom);
+                                TpAndWeapons(pl, ItemType.GunLogicer, DoorType.ServersBottom);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunLogicer, DoorType.Scp096);
+                                TpAndWeapons(pl, ItemType.GunLogicer, DoorType.Scp096);
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
@@ -347,11 +346,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunShotgun, DoorType.GateA);
+                                TpAndWeapons(pl, ItemType.GunShotgun, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunShotgun, DoorType.GateB);
+                                TpAndWeapons(pl, ItemType.GunShotgun, DoorType.GateB);
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
@@ -362,11 +361,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.GunRevolver, DoorType.GateA);
+                                TpAndWeapons(pl, ItemType.GunRevolver, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.GunRevolver, DoorType.GateB);
+                                TpAndWeapons(pl, ItemType.GunRevolver, DoorType.GateB);
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
@@ -377,11 +376,11 @@ namespace EventTools.Commands
                         Timing.CallDelayed(1f, () => {
                             foreach (Player pl in ClassD)
                             {
-                                TPAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateA);
+                                TpAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateA);
                             }
                             foreach (Player pl in Scientist)
                             {
-                                TPAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateB);
+                                TpAndWeapons(pl, ItemType.ParticleDisruptor, DoorType.GateB);
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);

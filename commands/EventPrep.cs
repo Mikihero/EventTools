@@ -1,4 +1,5 @@
-﻿using CommandSystem;
+﻿using System;
+using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
@@ -6,8 +7,8 @@ using InventorySystem.Items.Pickups;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
-using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace EventTools.Commands
 {
@@ -20,11 +21,11 @@ namespace EventTools.Commands
 
         public string Description { get; } = "Allows for easy event preparation.";
 
-        public static bool IsEventActive = false;
+        public static bool IsEventActive;
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
-            if (!Permissions.CheckPermission(Player.Get(sender), "et.eprep"))
+            if (!Player.Get(sender).CheckPermission("et.eprep"))
             {
                 response = "You don't have permission to use this command.";
                 return false;
@@ -36,7 +37,7 @@ namespace EventTools.Commands
             }
             if (Plugin.Instance.Config.EPCleanupItems)
             {
-                ItemPickupBase[] array = UnityEngine.Object.FindObjectsOfType<ItemPickupBase>();
+                ItemPickupBase[] array = Object.FindObjectsOfType<ItemPickupBase>();
                 foreach (ItemPickupBase item in array)
                 {
                     NetworkServer.Destroy(item.gameObject);
