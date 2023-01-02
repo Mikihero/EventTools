@@ -8,7 +8,7 @@ using server = Exiled.Events.Handlers.Server;
 
 namespace EventTools
 {
-    public abstract class Plugin : Plugin<Config>
+    public class Plugin : Plugin<Config>
     {
         public static Plugin Instance;
         public override Version RequiredExiledVersion => new Version(5, 3, 0);

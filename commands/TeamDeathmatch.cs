@@ -10,7 +10,7 @@ using PlayerRoles;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public abstract class TeamDeathmatch : ICommand, IUsageProvider
+    public class TeamDeathmatch : ICommand, IUsageProvider
     {
         public string Command => "FactionWars";
 

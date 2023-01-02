@@ -1,5 +1,7 @@
-﻿using Exiled.API.Interfaces;
+﻿using System.Collections.Generic;
+using Exiled.API.Interfaces;
 using System.ComponentModel;
+using Exiled.API.Enums;
 
 namespace EventTools
 {
@@ -41,8 +43,8 @@ namespace EventTools
         [Description("Whether or not the person executing the EventPrep command should be teleported to the old Tutorial Tower. Default: true")]
         public bool EPTpToTower { get; set; } = true;
 
-        [Description("Whether or not the EventPrep command should lock all doors in the facility. Default: true")]
-        public bool EPLockAllDoors { get; set; } = true;
+        [Description("Whether or not the EventPrep command should lock Class D cell doors. Default: true")]
+        public bool EPLockClassD { get; set; } = true;
 
         [Description("Whether or not the person using the EventPrep command should have their noclip enabled. Default: true")]
         public bool EPEnableNoclip { get; set; } = true;
@@ -50,7 +52,7 @@ namespace EventTools
         [Description("Whether or not everyone except the person executing the EventPrep command should be forceclassed to Class D. Default: true")]
         public bool EPForceClassEveryone { get; set; } = true;
 
-        [Description("Whether or not the EventPrep command should disable elevators untill they're enebaled again with the EventFinish command. Default: true")]
+        [Description("Whether or not the EventPrep command should lock all elevators. Default: true")]
         public bool EPDisableElevators { get; set; } = true;
 
         [Description("The message sent using CASSIE with the EventCountdown command.")]
@@ -109,5 +111,47 @@ namespace EventTools
 
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
         public bool FWDisaableFF { get; set; } = true;
+
+        [Description("The doors to lock for a deathmatch happening in LCZ.")]
+        public HashSet<DoorType> DmLCZDoors { get; set; } = new HashSet<DoorType>
+        {
+            DoorType.Scp914Gate,
+            DoorType.Scp330Chamber,
+            DoorType.Scp330,
+            DoorType.LczCafe,
+            DoorType.LczWc,
+            DoorType.LczArmory,
+            DoorType.Scp173Bottom,
+            DoorType.GR18Gate,
+            DoorType.CheckpointLczA,
+            DoorType.CheckpointLczB
+        };
+        
+        [Description("The doors to lock for a deathmatch happening in HCZ.")]
+        public HashSet<DoorType> DmHCZDoors { get; set; } = new HashSet<DoorType>
+        {
+            DoorType.CheckpointEzHczA,
+            DoorType.CheckpointEzHczB,
+            DoorType.Scp106Primary,
+            DoorType.Scp106Secondary,
+            DoorType.Scp096,
+            DoorType.Scp079First,
+            DoorType.HczArmory
+        };
+
+        [Description("The doors to lock for a deathmatch happening in HCZ.")]
+        public HashSet<DoorType> DmEZDoors { get; set; } = new HashSet<DoorType>
+        {
+            DoorType.CheckpointEzHczA,
+            DoorType.CheckpointEzHczB,
+            DoorType.GateA,
+            DoorType.GateB
+        };
+
+        [Description("The doors to lock for a deathmatch happening in HCZ.")]
+        public HashSet<DoorType> DmSurfaceDoors { get; set; } = new HashSet<DoorType>
+        {
+            
+        };
     }
 }

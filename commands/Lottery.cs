@@ -12,7 +12,7 @@ using PlayerRoles;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class Lottery : ICommand
+    public class Lottery : ICommand
     {
         public string Command => "lottery";
 

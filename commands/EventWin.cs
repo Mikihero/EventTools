@@ -7,7 +7,7 @@ using PlayerRoles;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventWin : ICommand, IUsageProvider
+    public class EventWin : ICommand, IUsageProvider
     {
         public string Command => "eventwin";
 

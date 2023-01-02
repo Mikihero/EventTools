@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.API.Features;
@@ -13,13 +14,13 @@ using Object = UnityEngine.Object;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    abstract class EventPrep : ICommand
+    public class EventPrep : ICommand
     {
-        public string Command { get; } = "EventPrep";
+        public string Command => "EventPrep";
 
-        public string[] Aliases { get; } = { "ep" };
+        public string[] Aliases { get; } = { "eprep" };
 
-        public string Description { get; } = "Allows for easy event preparation.";
+        public string Description => "Allows for easy event preparation.";
 
         public static bool IsEventActive;
 
@@ -32,8 +33,11 @@ namespace EventTools.Commands
             }
             if (Plugin.Instance.Config.EPCleanupRagdolls)
             {
-                foreach (Ragdoll doll in Map.Ragdolls)
-                    NetworkServer.Destroy(doll.GameObject);
+                BasicRagdoll[] array = (from r in Object.FindObjectsOfType<BasicRagdoll>() orderby r.Info.CreationTime descending select r).ToArray();
+                foreach (var t in array)
+                {
+                    NetworkServer.Destroy(t.gameObject);
+                }
             }
             if (Plugin.Instance.Config.EPCleanupItems)
             {
@@ -68,17 +72,16 @@ namespace EventTools.Commands
             {
                 Player.Get(sender).Teleport(new Vector3(38, 1014, -31));
             }
-            if (Plugin.Instance.Config.EPLockAllDoors)
+            if (Plugin.Instance.Config.EPLockClassD)
             {
-                Door.LockAll(9999, DoorLockType.AdminCommand);
+                foreach (Door door in Room.Get(RoomType.LczClassDSpawn).Doors)
+                {
+                    door.ChangeLock(DoorLockType.AdminCommand);
+                }
             }
             if (Plugin.Instance.Config.EPEnableNoclip)
             {
                 FpcNoclip.PermitPlayer(Player.Get(sender).ReferenceHub);
-            }
-            if (Plugin.Instance.Config.EPDisableElevators)
-            {
-                IsEventActive = true;
             }
             response = "Successfully executed the command.";
             return true;

@@ -7,7 +7,7 @@ using Exiled.Permissions.Extensions;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class LockZone : ICommand, IUsageProvider
+    public class LockZone : ICommand, IUsageProvider
     {
         public string Command { get; set; } = "lockzone";
 

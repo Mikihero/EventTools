@@ -9,7 +9,7 @@ using Exiled.Permissions.Extensions;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventNow : ICommand, IUsageProvider
+    public class EventNow : ICommand, IUsageProvider
     {
         public string Command => "EventNow";
 
