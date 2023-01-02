@@ -10,7 +10,7 @@ using PlayerRoles;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    public class TeamDeathmatch : ICommand, IUsageProvider
+    public abstract class TeamDeathmatch : ICommand, IUsageProvider
     {
         public string Command => "FactionWars";
 
@@ -83,7 +83,7 @@ namespace EventTools.Commands
 
         private void TpAndWeapons(Player pl, ItemType weapon, DoorType door)
         {
-            Door.Get(door).IsOpen = true; //opening the door before teleporting players in to prevent any form of desync's happening
+            Door.Get(door).IsOpen = true; //opening the door before teleporting players in to prevent any form of desyncs happening
             pl.Teleport(Door.Get(door));
             switch (weapon)
             {

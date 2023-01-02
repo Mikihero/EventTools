@@ -47,7 +47,7 @@ namespace EventTools
             player.InteractingElevator -= _eventHandler.OnUsingElevator;
             _eventHandler = null;
         }
-
+        
         private IEnumerator<float> RoundLockToggle()
         {
             while(true)

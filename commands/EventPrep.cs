@@ -13,7 +13,7 @@ using Object = UnityEngine.Object;
 namespace EventTools.Commands
 {
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
-    class EventPrep : ICommand
+    abstract class EventPrep : ICommand
     {
         public string Command { get; } = "EventPrep";
 

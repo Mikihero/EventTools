@@ -73,7 +73,7 @@ namespace EventTools.Commands
                         SendWebHook(message);
                     }
                 }
-                response = "Successfuly informed people about the event!";
+                response = "Successfully informed people about the event!";
                 return true;
             }
         }
