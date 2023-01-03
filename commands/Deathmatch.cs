@@ -1,12 +1,11 @@
 ﻿using System;
+using System.Linq;
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using MEC;
 using Exiled.Permissions.Extensions;
-using UnityEngine;
-using Utf8Json.Internal.Emit;
 
 namespace EventTools.Commands
 {
@@ -159,31 +158,53 @@ namespace EventTools.Commands
                     GiveItems(weapon, pl);
                 }
             }
+            Door.UnlockAll();
             Server.FriendlyFire = true;
             switch (zone)
             {
                 case ZoneType.LightContainment:
-                    foreach (DoorType door in Plugin.Instance.Config.DmLCZDoors)
+                    foreach (Door door in Door.List.Where(x => Plugin.Instance.Config.DmLCZDoors.Contains(x.Type)))
                     {
-                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                        door.ChangeLock(DoorLockType.AdminCommand);
                     }
                     break;
                 case ZoneType.HeavyContainment:
-                    foreach (DoorType door in Plugin.Instance.Config.DmHCZDoors)
+                    foreach (Door door in Door.List.Where(x => Plugin.Instance.Config.DmHCZDoors.Contains(x.Type)))
                     {
-                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                        door.ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    /*foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB || x.Type == DoorType.ElevatorNuke || x.Type == DoorType.ElevatorScp049))
+                    {
+                        door1.ChangeLock(DoorLockType.AdminCommand);   
+                    }*/
+                    foreach (Player pl in Player.List)
+                    {
+                        pl.Teleport(Door.Get(DoorType.HczArmory));
                     }
                     break;
                 case ZoneType.Entrance:
-                    foreach (DoorType door in Plugin.Instance.Config.DmEZDoors)
+                    foreach (Door door in Door.List.Where(x => Plugin.Instance.Config.DmEZDoors.Contains(x.Type)))
                     {
-                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                        door.ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorGateA || x.Type == DoorType.ElevatorGateB))
+                    {
+                        door1.ChangeLock(DoorLockType.AdminCommand);
+                    }
+
+                    foreach (Player pl in Player.List)
+                    {
+                        pl.Teleport(RoomType.EzShelter);
                     }
                     break;
                 case ZoneType.Surface:
-                    foreach (DoorType door in Plugin.Instance.Config.DmSurfaceDoors)
+                    foreach (Door door in Door.List.Where(x => Plugin.Instance.Config.DmSurfaceDoors.Contains(x.Type)))
                     {
-                        Door.Get(door).ChangeLock(DoorLockType.AdminCommand);
+                        door.ChangeLock(DoorLockType.AdminCommand);
+                    }
+                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorGateA || x.Type == DoorType.ElevatorGateB))
+                    {
+                        door1.ChangeLock(DoorLockType.AdminCommand);   
                     }
                     break;
             }
