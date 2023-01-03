@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
+using System.Collections.Generic;
+using System.Linq;
 using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
-using Interactables.Interobjects;
-using Interactables.Interobjects.DoorUtils;
-using MapGeneration;
-using PlayerRoles.PlayableScps.Scp939.Mimicry;
 
 namespace EventTools.Commands
 {
@@ -17,7 +14,25 @@ namespace EventTools.Commands
         public string Command => "ElevatorLock";
         public string[] Aliases => new[] { "elock" };
         public string Description => "Locks elevators in the facility";
-        public string[] Usage => new[] { "zone", "(optional)"};
+        public string[] Usage => new[] { "zone (optional)", "use <b><u>ElevatorLock zones</u></b> to see all zones"};
+
+        public HashSet<DoorType> ElevatorsToLock = new HashSet<DoorType>
+        {
+            DoorType.ElevatorNuke,
+            DoorType.ElevatorScp049,
+            DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB,
+            DoorType.ElevatorLczA,
+            DoorType.ElevatorLczB
+        };
+        
+        public Dictionary<string, ZoneType> ZonesDict = new Dictionary<string, ZoneType>
+        {
+            { "lcz", ZoneType.LightContainment },
+            { "hcz", ZoneType.HeavyContainment },
+            { "ez", ZoneType.Entrance },
+            { "surface", ZoneType.Surface }
+        };
 
         public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
         {
@@ -28,45 +43,53 @@ namespace EventTools.Commands
             }
             if(arguments.Count == 0)
             {
-                Door.Get(DoorType.ElevatorNuke).ChangeLock(DoorLockType.AdminCommand);
-                Door.Get(DoorType.ElevatorScp049).ChangeLock(DoorLockType.AdminCommand);
-                Door.Get(DoorType.ElevatorGateA).ChangeLock(DoorLockType.AdminCommand);
-                Door.Get(DoorType.ElevatorGateB).ChangeLock(DoorLockType.AdminCommand);
-                Door.Get(DoorType.ElevatorLczA).ChangeLock(DoorLockType.AdminCommand);
-                Door.Get(DoorType.ElevatorLczB).ChangeLock(DoorLockType.AdminCommand);
+                foreach (Door door in Door.List.Where(x => ElevatorsToLock.Contains(x.Type)))
+                {
+                    door.ChangeLock(DoorLockType.AdminCommand);
+                }
                 response = "Command executed successfully.";
                 return true;    
             }
 
-            if (arguments.Count != 1 || !Enum.TryParse(arguments.At(0), true, out ZoneType zone))
+            if (arguments.Count != 1)
             {
                 response = "Incorrect usage.";
                 return false;
             }
+            
+            if (arguments.At(0) == "zones")
+            {
+                response = "<b>Possible zones:</b> \n - lcz \n - hcz \n - ez \n - surface";
+                return false;
+            }
 
-            switch (zone)
+            if (!ZonesDict.ContainsKey(arguments.At(0)))
+            {
+                response = "Incorrect usage.";
+                return false;
+            }
+            
+            switch (ZonesDict[arguments.At(0)])
             {
                 case ZoneType.LightContainment:
-                    Door.Get(DoorType.ElevatorLczA).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.ElevatorLczB).ChangeLock(DoorLockType.AdminCommand);
+                    foreach (Door door in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB))
+                    {
+                        door.ChangeLock(DoorLockType.AdminCommand);
+                    }
                     break;
                 case ZoneType.HeavyContainment:
                     Door.Get(DoorType.ElevatorNuke).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.ElevatorScp049).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.ElevatorLczA).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.ElevatorLczB).ChangeLock(DoorLockType.AdminCommand);
+                    foreach (Door door in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB))
+                    {
+                        door.ChangeLock(DoorLockType.AdminCommand);
+                    }
                     break;
                 case ZoneType.Entrance:
-                    Door.Get(DoorType.ElevatorGateA).ChangeLock(DoorLockType.AdminCommand);
-                    Door.Get(DoorType.ElevatorGateB).ChangeLock(DoorLockType.AdminCommand);
-                    break;
                 case ZoneType.Surface:
                     Door.Get(DoorType.ElevatorGateA).ChangeLock(DoorLockType.AdminCommand);
                     Door.Get(DoorType.ElevatorGateB).ChangeLock(DoorLockType.AdminCommand);
                     break;
-                default:
-                    response = "Incorrect usage.";
-                    return false;
             }
             
             response = "Command executed successfully.";
