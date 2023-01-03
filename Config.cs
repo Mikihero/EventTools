@@ -52,8 +52,8 @@ namespace EventTools
         [Description("Whether or not everyone except the person executing the EventPrep command should be forceclassed to Class D. Default: true")]
         public bool EPForceClassEveryone { get; set; } = true;
 
-        [Description("Whether or not the EventPrep command should lock all elevators. Default: true")]
-        public bool EPDisableElevators { get; set; } = true;
+        [Description("Whether or not the EventPrep command should disable LCZ Decontamination. Default: true")] 
+        public bool EPDisableDecont { get; set; } = true;
 
         [Description("The message sent using CASSIE with the EventCountdown command.")]
         public string ECCassieMessage { get; set; } = "10 9 8 7 6 5 4 3 2 1 start";
@@ -124,7 +124,7 @@ namespace EventTools
             DoorType.Scp173Bottom,
             DoorType.GR18Gate,
             DoorType.CheckpointLczA,
-            DoorType.CheckpointLczB
+            DoorType.CheckpointLczB,
         };
         
         [Description("The doors to lock for a deathmatch happening in HCZ.")]
@@ -136,22 +136,30 @@ namespace EventTools
             DoorType.Scp106Secondary,
             DoorType.Scp096,
             DoorType.Scp079First,
-            DoorType.HczArmory
+            DoorType.HczArmory,
+            DoorType.ElevatorNuke,
+            DoorType.ElevatorScp049,
+            DoorType.ElevatorLczA,
+            DoorType.ElevatorLczB
         };
 
-        [Description("The doors to lock for a deathmatch happening in HCZ.")]
+        [Description("The doors to lock for a deathmatch happening in EZ.")]
         public HashSet<DoorType> DmEZDoors { get; set; } = new HashSet<DoorType>
         {
             DoorType.CheckpointEzHczA,
             DoorType.CheckpointEzHczB,
             DoorType.GateA,
-            DoorType.GateB
+            DoorType.GateB,
+            DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB
         };
 
-        [Description("The doors to lock for a deathmatch happening in HCZ.")]
+        [Description("The doors to lock for a deathmatch happening on the surface.")]
         public HashSet<DoorType> DmSurfaceDoors { get; set; } = new HashSet<DoorType>
         {
-            
+            DoorType.EscapePrimary,
+            DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB
         };
     }
 }

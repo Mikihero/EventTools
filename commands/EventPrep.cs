@@ -5,6 +5,7 @@ using Exiled.API.Enums;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 using InventorySystem.Items.Pickups;
+using LightContainmentZoneDecontamination;
 using Mirror;
 using PlayerRoles;
 using PlayerRoles.FirstPersonControl;
@@ -74,7 +75,7 @@ namespace EventTools.Commands
             }
             if (Plugin.Instance.Config.EPLockClassD)
             {
-                foreach (Door door in Room.Get(RoomType.LczClassDSpawn).Doors)
+                foreach (Door door in Door.List.Where(x => x.Type == DoorType.PrisonDoor))
                 {
                     door.ChangeLock(DoorLockType.AdminCommand);
                 }
@@ -82,6 +83,11 @@ namespace EventTools.Commands
             if (Plugin.Instance.Config.EPEnableNoclip)
             {
                 FpcNoclip.PermitPlayer(Player.Get(sender).ReferenceHub);
+            }
+
+            if (Plugin.Instance.Config.EPDisableDecont)
+            {
+                DecontaminationController.Singleton.NetworkDecontaminationOverride = DecontaminationController.DecontaminationStatus.Disabled;
             }
             response = "Successfully executed the command.";
             return true;
