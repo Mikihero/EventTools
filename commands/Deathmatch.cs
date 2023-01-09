@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using CommandSystem;
 using Exiled.API.Features;
@@ -19,7 +20,32 @@ namespace EventTools.Commands
         public string Description => "Starts a Deathmatch";
 
         public string[] Usage => new[] {"weapon", "zone", "use <b><u>deathmatch weapons</u></b> to see all the weapons", "use <b><u>deathmatch zones</u></b> to see all the zones"};
+        
+        public Dictionary<string, ZoneType> ZonesDict = new Dictionary<string, ZoneType>
+        {
+            { "lcz", ZoneType.LightContainment },
+            { "hcz", ZoneType.HeavyContainment },
+            { "ez", ZoneType.Entrance },
+            { "surface", ZoneType.Surface }
+        };
 
+        public Dictionary<string, ItemType> WeaponsDict = new Dictionary<string, ItemType>
+        {
+            { "com15", ItemType.GunCOM15 },
+            { "com18", ItemType.GunCOM18 },
+            { "com45", ItemType.GunCom45 },
+            { "fsp9", ItemType.GunFSP9 },
+            { "crossvec", ItemType.GunCrossvec },
+            { "ak", ItemType.GunAK },
+            { "e11", ItemType.GunE11SR },
+            { "epsilon", ItemType.GunE11SR },
+            { "logicer", ItemType.GunLogicer },
+            { "revolver", ItemType.GunRevolver },
+            { "shotgun", ItemType.GunShotgun },
+            { "lasergun", ItemType.ParticleDisruptor },
+            { "jailbird", ItemType.Jailbird },
+            { "hid", ItemType.MicroHID }
+        };
         private void GiveItems(ItemType weapon, Player pl)
         {
             switch(weapon)
@@ -89,6 +115,14 @@ namespace EventTools.Commands
                     pl.AddItem(ItemType.SCP500, 2);
                     pl.AddItem(ItemType.Medkit);
                     break;
+                case ItemType.Jailbird:
+                    pl.AddItem(ItemType.SCP500);
+                    pl.AddItem(ItemType.Medkit, 2);
+                    pl.AddItem(ItemType.Adrenaline);
+                    break;
+                case ItemType.MicroHID:
+                    pl.AddItem(ItemType.GrenadeFlash, 3);
+                    break;
                 default:
                     Log.Info("If you're seeing this, open an issue on github (https://github.com/Mikihero/EventTools). Method: GiveItems");
                     break;
@@ -104,7 +138,18 @@ namespace EventTools.Commands
                 {
                     if (pl != sender)
                     {
-                        pl.AddItem(gun);
+                        switch (gun)
+                        {
+                            case ItemType.Jailbird:
+                                pl.AddItem(ItemType.Jailbird, 4);
+                                break;
+                            case ItemType.MicroHID:
+                                pl.AddItem(ItemType.MicroHID, 4);
+                                break;
+                            default:
+                                pl.AddItem(gun);
+                                break;
+                        }
                     }
                     else
                     {
@@ -134,23 +179,23 @@ namespace EventTools.Commands
                 switch (arguments.At(0))
                 {
                     case "weapons":
-                        response = "<b>Possible weapons:</b> \n - GunCOM15 \n - GunCOM18 \n - GunCom45 \n - GunFSP9 \n - GunCrossvec \n - GunAK \n - GunE11SR \n - GunLogicer \n - GunShotgun \n - GunRevolver \n - ParticleDisruptor";
+                        response = "<b>Possible weapons:</b> \n - com15 \n - com18 \n - com45 \n - fsp9 \n - crossvec \n - ak \n - e11/epsilon \n - logicer \n - shotgun \n - revolver \n - lasergun \n - jailbird \n - hid";
                         return false;
                     case "zones":
-                        response = "<b>Possible zones:</b> \n - LightContainment \n - HeavyContainment \n - Entrance \n - Surface";
+                        response = "<b>Possible zones:</b> \n - lcz \n - hcz \n - ez \n - surface";
                         return false;
                     default:
                         response = "Incorrect usage.";
                         return false;
                 }
             }
-            bool weaponParsed = Enum.TryParse(arguments.At(0), true, out ItemType weapon);
-            bool zoneParsed = Enum.TryParse(arguments.At(1), true, out ZoneType zone);
-            if (!weaponParsed || !weapon.IsWeapon() || !zoneParsed)
+            if (!WeaponsDict.ContainsKey(arguments.At(0)) || !ZonesDict.ContainsKey(arguments.At(1)))
             {
                 response = "Incorrect usage.";
                 return false;
             }
+
+            ItemType weapon = WeaponsDict[arguments.At(0)];
             foreach (Player pl in Player.List)
             {
                 if (pl != senderPlr)
@@ -160,7 +205,7 @@ namespace EventTools.Commands
             }
             Door.UnlockAll();
             Server.FriendlyFire = true;
-            switch (zone)
+            switch (ZonesDict[arguments.At(1)])
             {
                 case ZoneType.LightContainment:
                     foreach (Door door in Door.List.Where(x => Plugin.Instance.Config.DmLCZDoors.Contains(x.Type)))
@@ -173,10 +218,10 @@ namespace EventTools.Commands
                     {
                         door.ChangeLock(DoorLockType.AdminCommand);
                     }
-                    /*foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB || x.Type == DoorType.ElevatorNuke || x.Type == DoorType.ElevatorScp049))
+                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB || x.Type == DoorType.ElevatorNuke || x.Type == DoorType.ElevatorScp049))
                     {
                         door1.ChangeLock(DoorLockType.AdminCommand);   
-                    }*/
+                    }
                     foreach (Player pl in Player.List)
                     {
                         pl.Teleport(Door.Get(DoorType.HczArmory));
@@ -191,7 +236,6 @@ namespace EventTools.Commands
                     {
                         door1.ChangeLock(DoorLockType.AdminCommand);
                     }
-
                     foreach (Player pl in Player.List)
                     {
                         pl.Teleport(RoomType.EzShelter);
@@ -205,6 +249,10 @@ namespace EventTools.Commands
                     foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorGateA || x.Type == DoorType.ElevatorGateB))
                     {
                         door1.ChangeLock(DoorLockType.AdminCommand);   
+                    }
+                    foreach (Player pl in Player.List)
+                    {
+                        pl.Teleport(Door.Get(DoorType.SurfaceGate));
                     }
                     break;
             }
