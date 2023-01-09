@@ -15,7 +15,7 @@ namespace EventTools
         public override Version Version => new Version(2, 1, 2, 0);
         public override string Author => "Miki_hero";
 
-        private static int _test;
+        private int _test;
         private EventHandlers _eventHandler;
 
         public override void OnEnabled()

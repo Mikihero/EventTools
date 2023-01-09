@@ -96,7 +96,7 @@
       <Version>3.8.1</Version>
     </PackageReference>
     <PackageReference Include="EXILED">
-      <Version>6.0.0-beta.18</Version>
+      <Version>6.0.0-beta.20</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
