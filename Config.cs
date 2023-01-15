@@ -25,17 +25,14 @@ namespace EventTools
         [Description("The amount of seconds every which the plugin should check if round lock is enabled and send a broadcast accordingly. Default: 300")]
         public float RLReminderTime { get; set; } = 300;
 
-        [Description("Whether or not the EventPrep command should cleanup ragdolls. Default: true")]
-        public bool EPCleanupRagdolls { get; set; } = true;
-
-        [Description("Whether or not the EventPrep command should cleanup items. Default: true")]
-        public bool EPCleanupItems { get; set; } = true;
-
+        [Description("Whether or not the EventPrep command should cleanup ragdolls and items. Default: true")]
+        public bool EPCleanup { get; set; } = true;
+        
         [Description("Whether or not the EventPrep command should enable roundlock. Default: true")]
         public bool EPRoundLock { get; set; } = true;
 
-        [Description("Whether or not the EventPrep command should set MTF and CI tickets to 1 (1 not 0 because at 0 tickets SL will still spawn ~5 people). Default: true")]
-        public bool EPRespawnTickets { get; set; } = true;
+        [Description("Whether or not respawns of CI and MTF should be prevented while an event is haoppening.")]
+        public bool PreventRespawns { get; set; } = true;
 
         [Description("Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true")]
         public bool EPFCToTutorial { get; set; } = true;

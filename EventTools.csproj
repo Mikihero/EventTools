@@ -84,6 +84,7 @@
     <Compile Include="Commands\TeamDeathmatch.cs" />
     <Compile Include="Commands\LockZone.cs" />
     <Compile Include="Commands\Lottery.cs" />
+    <Compile Include="Commands\Tower.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="EventHandlers.cs" />
     <Compile Include="Plugin.cs" />
@@ -96,7 +97,7 @@
       <Version>3.8.1</Version>
     </PackageReference>
     <PackageReference Include="EXILED">
-      <Version>6.0.0-beta.18</Version>
+      <Version>6.0.0-beta.22</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

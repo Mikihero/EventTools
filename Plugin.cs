@@ -15,8 +15,8 @@ namespace EventTools
         public override Version Version => new Version(2, 1, 2, 0);
         public override string Author => "Miki_hero";
 
-        private static int _test;
-        private EventHandlers _eventHandler;
+        private int _test;
+        private EventHandlers _eventHandlers; 
 
         public override void OnEnabled()
         {
@@ -30,22 +30,24 @@ namespace EventTools
         {
             Timing.KillCoroutines();
             UnRegisterEvents();
+            Instance = null;
             base.OnDisabled();
         }
 
         private void RegisterEvents()
         {
-            _eventHandler = new EventHandlers();
-            player.Left += _eventHandler.OnLeft;
-            server.RoundStarted += _eventHandler.OnRoundStart;
-            player.InteractingElevator += _eventHandler.OnUsingElevator;
+            _eventHandlers = new EventHandlers();
+            player.Left += _eventHandlers.OnLeft;
+            server.RoundStarted += _eventHandlers.OnRoundStart;
+            server.RespawningTeam += _eventHandlers.OnRespawningTeam;
         }
 
         private void UnRegisterEvents()
         {
-            player.Left -= _eventHandler.OnLeft;
-            player.InteractingElevator -= _eventHandler.OnUsingElevator;
-            _eventHandler = null;
+            player.Left -= _eventHandlers.OnLeft;
+            server.RoundStarted -= _eventHandlers.OnRoundStart;
+            server.RespawningTeam -= _eventHandlers.OnRespawningTeam;
+            _eventHandlers = null;
         }
         
         private IEnumerator<float> RoundLockToggle()
