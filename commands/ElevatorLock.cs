@@ -14,7 +14,7 @@ namespace EventTools.Commands
         public string Command => "ElevatorLock";
         public string[] Aliases => new[] { "elock" };
         public string Description => "Locks elevators in the facility";
-        public string[] Usage => new[] { "zone (optional)", "use <b><u>ElevatorLock zones</u></b> to see all zones"};
+        public string[] Usage => new[] { "zone (optional)", "use <b><u>ElevatorLock zones</u></b> to see all zones" };
 
         public HashSet<DoorType> ElevatorsToLock = new HashSet<DoorType>
         {

@@ -16,8 +16,8 @@ namespace EventTools
         public override string Author => "Miki_hero";
 
         private int _test;
-        private EventHandlers _eventHandlers; 
-
+        private EventHandlers _eventHandlers;
+        
         public override void OnEnabled()
         {
             Instance = this;

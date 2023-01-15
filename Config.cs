@@ -134,10 +134,10 @@ namespace EventTools
             DoorType.Scp096,
             DoorType.Scp079First,
             DoorType.HczArmory,
-            DoorType.ElevatorNuke,
+            /*DoorType.ElevatorNuke,
             DoorType.ElevatorScp049,
             DoorType.ElevatorLczA,
-            DoorType.ElevatorLczB
+            DoorType.ElevatorLczB*/
         };
 
         [Description("The doors to lock for a deathmatch happening in EZ.")]
@@ -147,16 +147,16 @@ namespace EventTools
             DoorType.CheckpointEzHczB,
             DoorType.GateA,
             DoorType.GateB,
-            DoorType.ElevatorGateA,
-            DoorType.ElevatorGateB
+            /*DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB*/
         };
 
         [Description("The doors to lock for a deathmatch happening on the surface.")]
         public HashSet<DoorType> DmSurfaceDoors { get; set; } = new HashSet<DoorType>
         {
             DoorType.EscapePrimary,
-            DoorType.ElevatorGateA,
-            DoorType.ElevatorGateB
+            /*DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB*/
         };
     }
 }
