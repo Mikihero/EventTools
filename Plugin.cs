@@ -101,7 +101,7 @@ namespace EventTools
                 {
                     foreach (Player player in Player.List)
                     {
-                        if (player.CheckPermission("AdminChat"))
+                        if (player.CheckPermission("et.roundlockinfo"))
                         {
                             player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
                         }
