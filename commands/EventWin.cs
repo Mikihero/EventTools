@@ -39,7 +39,8 @@ namespace EventTools.Commands
 
             if (Plugin.Instance.Config.EWFCEveryoneToSpectator)
             {
-                foreach (Player pl in Player.List) pl.Role.Set(RoleTypeId.Spectator);
+                foreach (Player pl in Player.List) 
+                    pl.Role.Set(RoleTypeId.Spectator);
             }
             Player.Get(sender).Role.Set(RoleTypeId.ClassD);
             target.Role.Set(RoleTypeId.ClassD);
