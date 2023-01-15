@@ -12,7 +12,7 @@ namespace EventTools.Commands
 
         public string[] Aliases => new[] { "EFinish" };
 
-        public string Description => "Finishes the current event by enabling the elevators and returning friendly fire back to normal.";
+        public string Description => "Finishes the current event.";
 
         public static bool FriendlyFireState;
 
@@ -30,7 +30,7 @@ namespace EventTools.Commands
             }
             Server.FriendlyFire = FriendlyFireState;
             EventPrep.IsEventActive = false;
-            response = "Re-enabled the elevators!";
+            response = "Sucessfully executed the command.";
             return true;   
         }
     }
