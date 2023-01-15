@@ -136,26 +136,19 @@ namespace EventTools.Commands
             {
                 foreach (Player pl in Player.List)
                 {
-                    if (pl != sender)
+                    if (pl == sender)
+                        continue;
+                    switch (gun)
                     {
-                        switch (gun)
-                        {
-                            case ItemType.Jailbird:
-                                pl.AddItem(ItemType.Jailbird, 4);
-                                break;
-                            case ItemType.MicroHID:
-                                pl.AddItem(ItemType.MicroHID, 4);
-                                break;
-                            default:
-                                pl.AddItem(gun);
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        pl.AddItem(ItemType.GunE11SR);
-                        pl.AddItem(ItemType.ArmorHeavy);
-                        pl.SetAmmo(AmmoType.Nato556, 200);
+                        case ItemType.Jailbird:
+                            pl.AddItem(ItemType.Jailbird, 4);
+                            break;
+                        case ItemType.MicroHID:
+                            pl.AddItem(ItemType.MicroHID, 4);
+                            break;
+                        default:
+                            pl.AddItem(gun);
+                            break;
                     }
                 }
             });
@@ -218,13 +211,10 @@ namespace EventTools.Commands
                     {
                         door.ChangeLock(DoorLockType.AdminCommand);
                     }
-                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorLczA || x.Type == DoorType.ElevatorLczB || x.Type == DoorType.ElevatorNuke || x.Type == DoorType.ElevatorScp049))
-                    {
-                        door1.ChangeLock(DoorLockType.AdminCommand);   
-                    }
+                    
                     foreach (Player pl in Player.List)
                     {
-                        pl.Teleport(Door.Get(DoorType.HczArmory));
+                        pl.Teleport(Door.Get(DoorType.Scp939Cryo));
                     }
                     break;
                 case ZoneType.Entrance:
@@ -232,10 +222,7 @@ namespace EventTools.Commands
                     {
                         door.ChangeLock(DoorLockType.AdminCommand);
                     }
-                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorGateA || x.Type == DoorType.ElevatorGateB))
-                    {
-                        door1.ChangeLock(DoorLockType.AdminCommand);
-                    }
+                    
                     foreach (Player pl in Player.List)
                     {
                         pl.Teleport(RoomType.EzShelter);
@@ -246,16 +233,16 @@ namespace EventTools.Commands
                     {
                         door.ChangeLock(DoorLockType.AdminCommand);
                     }
-                    foreach (Door door1 in Door.List.Where(x => x.Type == DoorType.ElevatorGateA || x.Type == DoorType.ElevatorGateB))
-                    {
-                        door1.ChangeLock(DoorLockType.AdminCommand);   
-                    }
+
                     foreach (Player pl in Player.List)
                     {
                         pl.Teleport(Door.Get(DoorType.SurfaceGate));
                     }
                     break;
             }
+            senderPlr.AddItem(ItemType.GunE11SR);
+            senderPlr.AddItem(ItemType.ArmorHeavy);
+            senderPlr.SetAmmo(AmmoType.Nato556, 200);
             Timing.CallDelayed(60f, () =>
             {
                 CassieAndGun(weapon, senderPlr);
