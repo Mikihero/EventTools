@@ -44,7 +44,7 @@ namespace EventTools.Commands
                     return true;
                 case "ez": 
                     Door.LockAll(9999, ZoneType.Entrance, DoorLockType.AdminCommand);
-                    response = "Toggled door lock in HCZ.";
+                    response = "Toggled door lock in EZ.";
                     return true;
                 case "surface": 
                     Door.LockAll(9999, ZoneType.Surface, DoorLockType.AdminCommand);
