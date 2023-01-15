@@ -213,7 +213,7 @@ namespace EventTools.Commands
             }
         }
 
-        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: rewrite everything from 233 to allow for user chosen zones
+        public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response) //TODO: rewrite everything from 233 to allow for user chosen zones, add support for jailbird and com45
         {
             if (!Player.Get(sender).CheckPermission("et.fwars"))
             {
