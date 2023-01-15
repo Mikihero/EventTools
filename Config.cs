@@ -37,8 +37,8 @@ namespace EventTools
         [Description("Whether or not the person executing the EventPrep command should be forceclassed to tutorial. Default: true")]
         public bool EPFCToTutorial { get; set; } = true;
 
-        [Description("Whether or not the person executing the EventPrep command should be teleported to the old Tutorial Tower. Default: true")]
-        public bool EPTpToTower { get; set; } = true;
+        [Description("Whether or not the EventPrep command should close all doors in the facility. Default: true")]
+        public bool EPCloseDoors { get; set; } = true;
 
         [Description("Whether or not the EventPrep command should lock Class D cell doors. Default: true")]
         public bool EPLockClassD { get; set; } = true;
@@ -82,7 +82,7 @@ namespace EventTools
         [Description("The messsage to be broadcasted when using the EventNow command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.")]
         public string ENowBC { get; set; } = "<size=40><b><color=#cc9900>Event:\n</color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
 
-        [Description("Whether or not the EventNow command should send a message to discord, if set to true the  value has to be correctly specified. Default: false.")]
+        [Description("Whether or not the EventNow command should send a message to discord, if set to true the ENowDiscordWebhookURL value has to be correctly specified. Default: false.")]
         public bool ENowSendToDiscord { get; set; } = false;
 
         [Description("The message to be sent via a discord webhook when using the EventNow command. Can be formatted like a normal discord message.")]
@@ -134,10 +134,10 @@ namespace EventTools
             DoorType.Scp096,
             DoorType.Scp079First,
             DoorType.HczArmory,
-            /*DoorType.ElevatorNuke,
+            DoorType.ElevatorNuke,
             DoorType.ElevatorScp049,
             DoorType.ElevatorLczA,
-            DoorType.ElevatorLczB*/
+            DoorType.ElevatorLczB
         };
 
         [Description("The doors to lock for a deathmatch happening in EZ.")]
@@ -147,16 +147,16 @@ namespace EventTools
             DoorType.CheckpointEzHczB,
             DoorType.GateA,
             DoorType.GateB,
-            /*DoorType.ElevatorGateA,
-            DoorType.ElevatorGateB*/
+            DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB
         };
 
         [Description("The doors to lock for a deathmatch happening on the surface.")]
         public HashSet<DoorType> DmSurfaceDoors { get; set; } = new HashSet<DoorType>
         {
             DoorType.EscapePrimary,
-            /*DoorType.ElevatorGateA,
-            DoorType.ElevatorGateB*/
+            DoorType.ElevatorGateA,
+            DoorType.ElevatorGateB
         };
     }
 }
