@@ -14,6 +14,7 @@ An SCP:SL EXILED plugin designed to automate several tasks usually done by hand 
 - **Deathmatch** - Starts a deathmatch with a specified weapon and zone(dm weapons to see all weapons, dm zones to see all zones), unlocks all the doors in that zone, then locks doors specified in the config, gives everyone heals (usually SCP-500 and a medkit but it differs depending on the chosen weapon), armor and ammo for the chosen weapon, after 1 minute sends a silent cassie with a countdown and then gives everyone the specified weapon. Best used in combination with the EventPrep command. Also turns on FF at the start if for some reason it was off (why would you turn it off?!).
 - **TeamDeathmatch** - Divides everyone (except the command's sender) into 2 teams (ClassD's and Scientists), teleports them into separate rooms, gives them equipment depending on the specified weapon (tdm weapons to see all weapons). Turns off friendly fire and after 30s allows everyone to go out and start killing! (the Particle Disruptor was taken into account and it is given at the end of the countdown unlike other weapons). Also disables the elevators indefinitely. Best used in combination with the EventPrep command.  
 - **EventFinish** - Finishes the event by setting certain values to false.  
+  
 **Most of the above commands have aliases that are shorter of the original command eg. EventEnd == EEnd.**
 
 **Lottery numbers:**  
