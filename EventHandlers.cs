@@ -1,5 +1,6 @@
 ﻿using Exiled.API.Features;
 using Exiled.Events.EventArgs.Player;
+using Exiled.Events.EventArgs.Server;
 
 namespace EventTools
 {
@@ -11,14 +12,14 @@ namespace EventTools
             Commands.TeamDeathmatch.Scientist.Remove(ev.Player);
         }
 
-        public void OnUsingElevator(InteractingElevatorEventArgs ev)
+        public void OnRespawningTeam(RespawningTeamEventArgs ev)
         {
-            if(Commands.EventPrep.IsEventActive)
+            if (Commands.EventPrep.IsEventActive && Plugin.Instance.Config.PreventRespawns)
             {
-                ev.IsAllowed = false; //prevents the elevators from being used while an Event is happening
+                ev.IsAllowed = false;
             }
         }
-
+        
         public void OnRoundStart()
         {
             Commands.EventFinish.FriendlyFireState = Server.FriendlyFire; //saves the friendly fire state
