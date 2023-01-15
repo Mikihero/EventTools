@@ -22,8 +22,7 @@ namespace EventTools.Commands
 
         public static HashSet<Player> ClassD = new HashSet<Player>();
         public static HashSet<Player> Scientist = new HashSet<Player>();
-
-        //TODO: Add the ability to choose a zone
+        
         private void PreparePlayers(Player commandSender)
         {
             commandSender.AddItem(ItemType.GunE11SR);
