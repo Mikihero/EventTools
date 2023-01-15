@@ -12,13 +12,13 @@ namespace EventTools.Commands
     [CommandHandler(typeof(RemoteAdminCommandHandler))]
     public class TeamDeathmatch : ICommand, IUsageProvider
     {
-        public string Command => "FactionWars";
+        public string Command => "TeamDeathmatch";
 
-        public string[] Aliases { get; set; } = { "FWars", "Wars" };
+        public string[] Aliases { get; set; } = { "tdm" };
 
-        public string Description => "Starts an event of faction wars.";
+        public string Description => "Starts an event of TeamDeathmatch.";
 
-        public string[] Usage { get; set; } = { "weapon", "use <b><u>factionwars weapons</u></b> to see all the weapons" };
+        public string[] Usage { get; set; } = { "weapon", "use <b><u>teamdeathmatch weapons</u></b> to see all the weapons" };
 
         public static HashSet<Player> ClassD = new HashSet<Player>();
         public static HashSet<Player> Scientist = new HashSet<Player>();
@@ -29,7 +29,7 @@ namespace EventTools.Commands
             commandSender.AddItem(ItemType.GunE11SR);
             commandSender.AddItem(ItemType.ArmorCombat);
             commandSender.SetAmmo(AmmoType.Nato556, 120);
-            if (Plugin.Instance.Config.FWDisaableFF)
+            if (Plugin.Instance.Config.TDMDisaableFF)
             {
                 Server.FriendlyFire = false;
             }
@@ -249,7 +249,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "com18":
                         PreparePlayers(Player.Get(sender));
@@ -265,7 +265,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "fsp9":
                         PreparePlayers(Player.Get(sender));
@@ -280,7 +280,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "crossvec":
                         PreparePlayers(Player.Get(sender));
@@ -295,7 +295,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "ak":
                         PreparePlayers(Player.Get(sender));
@@ -310,7 +310,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "epsilon":
                         PreparePlayers(Player.Get(sender));
@@ -325,7 +325,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "logicer":
                         PreparePlayers(Player.Get(sender));
@@ -340,7 +340,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.HeavyContainment);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "shotgun":
                         PreparePlayers(Player.Get(sender));
@@ -355,7 +355,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "revolver":
                         PreparePlayers(Player.Get(sender));
@@ -370,7 +370,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     case "lasergun":
                         PreparePlayers(Player.Get(sender));
@@ -385,7 +385,7 @@ namespace EventTools.Commands
                             }
                         });
                         DoorsAndCassie(ZoneType.Entrance);
-                        response = "Faction Wars were successfully started!";
+                        response = "TeamDeathmatch was successfully started!";
                         return true;
                     default:
                         response = "Incorrect usage.";

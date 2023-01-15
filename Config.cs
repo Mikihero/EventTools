@@ -107,7 +107,7 @@ namespace EventTools
         public bool EWFCEveryoneToSpectator { get; set; } = false;
 
         [Description("Whether or not the FactionWars command should disable friendly fire. Default: true.")]
-        public bool FWDisaableFF { get; set; } = true;
+        public bool TDMDisaableFF { get; set; } = true;
 
         [Description("The doors to lock for a deathmatch happening in LCZ.")]
         public HashSet<DoorType> DmLCZDoors { get; set; } = new HashSet<DoorType>
