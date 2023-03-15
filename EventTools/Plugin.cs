@@ -30,7 +30,8 @@ namespace EventTools
 
         public override void OnDisabled()
         {
-            Timing.KillCoroutines();
+            Timing.KillCoroutines("rl toggle");
+            Timing.KillCoroutines("RoundLockReminder");
             UnRegisterEvents();
             Instance = null;
             base.OnDisabled();
