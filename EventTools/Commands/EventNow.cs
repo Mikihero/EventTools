@@ -3,7 +3,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using CommandSystem;
-using Discord;
 using Exiled.API.Features;
 using Exiled.Permissions.Extensions;
 
