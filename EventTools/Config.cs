@@ -22,9 +22,6 @@ namespace EventTools
         [Description("The message sent in AdminChat as a reminder that roundlock is still enabled, can be formatted like a normal SL broadcast.")]
         public string RLStillEnabled { get; set; } = "[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>";
 
-        [Description("Server name included in webook notif.")]
-        public string ServerName { get; set; } = "MyServer 1";
-
         [Description("The amount of time that if round lock is left enabled for, will send a broadcast to permissioned people. Default: 300")]
         public float RLReminderTime { get; set; } = 300;
 
@@ -61,6 +58,9 @@ namespace EventTools
         [Description("Whether or not the CASSIE message for the EventCountdown command should have subtitles. Default: true")]
         public bool ECSubtitles { get; set; } = true;
 
+        [Description("Server name included in the webhook message sent via the EventNext and EventNow commands.")]
+        public string ServerName { get; set; } = "MyServer 1";
+        
         [Description("The message to be broadcasted when using the EventNext command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.")]
         public string ENextBC { get; set; } = "<size=40><b><color=#cc9900>In the next round there will be an event:\n</color></b></size><size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>";
 
@@ -88,7 +88,7 @@ namespace EventTools
         [Description("Whether or not the EventNow command should send a message to discord, if set to true the ENowDiscordWebhookURL value has to be correctly specified. Default: false.")]
         public bool ENowSendToDiscord { get; set; } = false;
 
-        [Description("The message to be sent via a discord webhook when using the EventNow command. Can be formatted like a normal discord message.")]
+        [Description("The message to be sent via a discord webhook when using the EventNow command. Variables: EVENTNAME, SERVERNAME, DISCORDMENTION")]
         public string ENowDiscordMessage { get; set; } = "An event is happening this round: `{EVENTNAME}`";
 
         [Description("Discord ID of the role that should be pinged when using the EventNow command. Leave empty to not ping any role.")]

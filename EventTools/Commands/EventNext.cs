@@ -55,27 +55,32 @@ namespace EventTools.Commands
                 response = "Incorrect usage.";
                 return false;
             }
-            else
+
+            string eventName = string.Join(" ", arguments);
+            string serverName = Plugin.Instance.Config.ServerName;
+            string mentionId = Plugin.Instance.Config.ENextDiscordRoleID;
+            string broadcastMessage = Plugin.Instance.Config.ENextBC.Replace("{EVENTNAME}", eventName);
+            Map.Broadcast(10, broadcastMessage);
+            if(Plugin.Instance.Config.ENextSendToDiscord)
             {
-                string pmrg = string.Join(" ", arguments);
-                string evenTame = ($"{pmrg} ~ {Plugin.Instance.Config.ServerName}");
-                string broadcastMessage = Plugin.Instance.Config.ENextBC.Replace("{EVENTNAME}", evenTame);
-                Map.Broadcast(10, broadcastMessage);
-                if(Plugin.Instance.Config.ENextSendToDiscord)
+                if(string.IsNullOrEmpty(Plugin.Instance.Config.ENextDiscordRoleID))
                 {
-                    if(string.IsNullOrEmpty(Plugin.Instance.Config.ENextDiscordRoleID))
-                    {
-                        SendWebHook(Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", evenTame));
-                    }
-                    else
-                    {
-                        string message = $"<@&{Plugin.Instance.Config.ENextDiscordRoleID}> {Plugin.Instance.Config.ENextDiscordMessage.Replace("{EVENTNAME}", evenTame)}";
-                        SendWebHook(message);
-                    }
+                    string message = Plugin.Instance.Config.ENextDiscordMessage
+                        .Replace("{EVENTNAME}", eventName)
+                        .Replace("{SERVERNAME}", serverName);
+                    SendWebHook(message);
                 }
-                response = "Successfully informed people about the event!";
-                return true;
+                else
+                {
+                    string message = Plugin.Instance.Config.ENextDiscordMessage
+                        .Replace("{EVENTNAME}", eventName)
+                        .Replace("{SERVERNAME}", serverName)
+                        .Replace("{DISCORDMENTION}", $"<@&{mentionId}>");
+                    SendWebHook(message);
+                }
             }
+            response = "Successfully informed people about the event!";
+            return true;
         }
     }
 }
