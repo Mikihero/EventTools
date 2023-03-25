@@ -63,21 +63,11 @@ namespace EventTools.Commands
             Map.Broadcast(10, broadcastMessage);
             if(Plugin.Instance.Config.ENextSendToDiscord)
             {
-                if(string.IsNullOrEmpty(Plugin.Instance.Config.ENextDiscordRoleID))
-                {
-                    string message = Plugin.Instance.Config.ENextDiscordMessage
-                        .Replace("{EVENTNAME}", eventName)
-                        .Replace("{SERVERNAME}", serverName);
-                    SendWebHook(message);
-                }
-                else
-                {
-                    string message = Plugin.Instance.Config.ENextDiscordMessage
-                        .Replace("{EVENTNAME}", eventName)
-                        .Replace("{SERVERNAME}", serverName)
-                        .Replace("{DISCORDMENTION}", $"<@&{mentionId}>");
-                    SendWebHook(message);
-                }
+                string message = Plugin.Instance.Config.ENextDiscordMessage
+                    .Replace("{EVENTNAME}", eventName)
+                    .Replace("{SERVERNAME}", serverName)
+                    .Replace("{DISCORDMENTION}", $"<@&{mentionId}>");
+                SendWebHook(message);
             }
             response = "Successfully informed people about the event!";
             return true;
