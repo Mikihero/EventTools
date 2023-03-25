@@ -67,7 +67,7 @@ event_tools:
   r_l_disabled_message: '[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#50c878>RoundLock</color><color=#ffffff> has been </color><color=#c50000>disabled.</color>'
   # The message sent in AdminChat as a reminder that roundlock is still enabled, can be formatted like a normal SL broadcast.
   r_l_still_enabled: '[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>'
-  # The amount of seconds every which the plugin should check if round lock is enabled and send a broadcast accordingly. Default: 300
+  # The amount of time that if round lock is left enabled for, will send a broadcast to permissioned people. Default: 300
   r_l_reminder_time: 300
   # Whether or not the EventPrep command should cleanup ragdolls and items. Default: true
   e_p_cleanup: true
@@ -91,42 +91,44 @@ event_tools:
   e_c_cassie_message: 10 9 8 7 6 5 4 3 2 1 start
   # Whether or not the CASSIE message for the EventCountdown command should have subtitles. Default: true
   e_c_subtitles: true
-  # The message to be broadcasted when using the EventNext command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.
+  # Server name included in the webhook message sent via the EventNext and EventNow commands.
+  server_name: MyServer 1
+  # The broadcast to be sent when using the EventNext command. Variables: EVENTNAME
   e_next_b_c: >-
     <size=40><b><color=#cc9900>In the next round there will be an event:
 
     </color></b></size><size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>
-  # Whether or not the EventNext command should send a message to discord, if set to true the ENextDiscordWebhookURL value has to be correctly specified. Default: false.
+  # Whether or not the EventNext command should send a message to discord. Default: false.
   e_next_send_to_discord: false
-  # The message to be sent via a discord webhook when using the EventNext command. Can be formatted like a normal discord message.
-  e_next_discord_message: 'In the next round there will be an event: `{EVENTNAME}`'
-  # Discord ID of the role that should be pinged when using the EventNext command. Leave empty to not ping any role.
+  # The message to be sent via a discord webhook when using the EventNext command. Variables: EVENTNAME, SERVERNAME, DISCORDMENTION
+  e_next_discord_message: '{DISCORDMENTION} In the next round there will be an event: `{EVENTNAME}` on the server: `{SERVERNAME}`'
+  # Discord ID of the role to mention when using the EventNext command.
   e_next_discord_role_i_d: ''
-  # Name of the Webhook used in the EventNext command that's displayed on discord.
+  # Name of the Discord Webhook used in the EventNext command
   e_next_webhook_name: EventNotifier
-  # The Discord Webhook URL via which the EventNext command will send messages.
+  # The Discord Webhook URL used in the EventNext command.
   e_next_discord_webhook_u_r_l: ''
   # The avatar Discord Webhook's avatar URL for the EventNext command.
   e_next_webhook_avatar_u_r_l: https://media.giphy.com/media/jzKb8n8n2GC6s0cUB1/giphy.gif
-  # The messsage to be broadcasted when using the EventNow command, can be formatted like a normal SL broadcast. {EVENTNAME} will be replaced with the name of the event.
+  # The message to be broadcast when using the EventNow command. Variables: EVENTNAME
   e_now_b_c: >-
     <size=40><b><color=#cc9900>Event:
 
     </color></b></size> <size=50><b><color=#ff0000>{EVENTNAME}</color></b></size>
-  # Whether or not the EventNow command should send a message to discord, if set to true the ENowDiscordWebhookURL value has to be correctly specified. Default: false.
+  # Whether or not the EventNow command should send a message to discord. Default: false.
   e_now_send_to_discord: false
-  # The message to be sent via a discord webhook when using the EventNow command. Can be formatted like a normal discord message.
-  e_now_discord_message: 'An event is happening this round: `{EVENTNAME}`'
-  # Discord ID of the role that should be pinged when using the EventNow command. Leave empty to not ping any role.
+  # The message to be sent via a discord webhook when using the EventNow command. Variables: EVENTNAME, SERVERNAME, DISCORDMENTION
+  e_now_discord_message: '{DISCORDMENTION} An event is happening this round: `{EVENTNAME}` on the server: `{SERVERNAME}`'
+  # Discord ID of the role that should be pinged when using the EventNow command.
   e_now_discord_role_i_d: ''
-  # Name of the Webhook used in the EventNow command that's displayed on discord.
+  # Name of the Discord Webhook used in the EventNow command.
   e_now_webhook_name: EventNotifier
-  # The Discord Webhook URL via which the EventNow command will send messages.
+  # The Discord Webhook URL used in the EventNow command.
   e_now_discord_webhook_u_r_l: ''
   # The avatar Discord Webhook's avatar URL for the EventNow command.
   e_now_webhook_avatar_u_r_l: https://media.giphy.com/media/jzKb8n8n2GC6s0cUB1/giphy.gif
-  # The broadcast to be sent whenever the lottery command is used. [NUMBER] will be replaced with the chosen number.
-  lottery_broadcast: <color=#b00b69><b><size=60>[NUMBER]</size></b></color>
+  # The broadcast to be sent whenever the lottery command is used. Variables: NUMBER
+  lottery_broadcast: <color=#b00b69><b><size=60>{NUMBER}</size></b></color>
   # Whether or not the EventWin command should forceclass everyone except you and your target to spectator. Default: false
   e_w_f_c_everyone_to_spectator: false
   # Whether or not the FactionWars command should disable friendly fire. Default: true.
