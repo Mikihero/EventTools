@@ -103,6 +103,8 @@ namespace EventTools
                         {
                             player.Broadcast(5, message, Broadcast.BroadcastFlags.AdminChat);
                         }
+
+                        timeLocked = 0;
                     }
 
                     timeLocked++;

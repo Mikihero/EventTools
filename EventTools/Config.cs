@@ -89,7 +89,7 @@ namespace EventTools
         public bool ENowSendToDiscord { get; set; } = false;
 
         [Description("The message to be sent via a discord webhook when using the EventNow command. Variables: EVENTNAME, SERVERNAME, DISCORDMENTION")]
-        public string ENowDiscordMessage { get; set; } = "{DISCORDMENTION} An event is happening this round: `{EVENTNAME}` on the server: {SERVERNAME}";
+        public string ENowDiscordMessage { get; set; } = "{DISCORDMENTION} An event is happening this round: `{EVENTNAME}` on the server: `{SERVERNAME}`";
 
         [Description("Discord ID of the role that should be pinged when using the EventNow command.")]
         public string ENowDiscordRoleID { get; set; } = "";
