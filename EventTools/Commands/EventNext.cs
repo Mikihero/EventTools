@@ -57,7 +57,7 @@ namespace EventTools.Commands
             }
             else
             {
-                string evenTame = string.Join(" ", arguments);
+                string evenTame = string.Join($"{arguments} ~ {Plugin.Instance.Config.ServerName}");
                 string broadcastMessage = Plugin.Instance.Config.ENextBC.Replace("{EVENTNAME}", evenTame);
                 Map.Broadcast(10, broadcastMessage);
                 if(Plugin.Instance.Config.ENextSendToDiscord)

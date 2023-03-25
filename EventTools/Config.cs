@@ -22,6 +22,9 @@ namespace EventTools
         [Description("The message sent in AdminChat as a reminder that roundlock is still enabled, can be formatted like a normal SL broadcast.")]
         public string RLStillEnabled { get; set; } = "[<color=#002db3>Event</color><color=#98fb98>Tools</color>] <color=#ffffff> A quick reminder that </color><color=#50c878>RoundLock</color><color=#ffffff> is still </color><color=#00ffff>enabled.</color>";
 
+        [Description("Server name included in webook notif.")]
+        public string ServerName { get; set; } = "MyServer 1";
+
         [Description("The amount of time that if round lock is left enabled for, will send a broadcast to permissioned people. Default: 300")]
         public float RLReminderTime { get; set; } = 300;
 
