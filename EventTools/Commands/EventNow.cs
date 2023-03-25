@@ -58,7 +58,8 @@ namespace EventTools.Commands
             }
             else
             {
-                string eventName = string.Join($"{arguments} ~ {Plugin.Instance.Config.ServerName}");
+                string pmrg = string.Join(" ", arguments);
+                string eventName = ($"{pmrg} ~ {Plugin.Instance.Config.ServerName}");
                 string broadcastMessage = Plugin.Instance.Config.ENowBC.Replace("{EVENTNAME}", eventName);
                 Map.Broadcast(10, broadcastMessage);
                 if (Plugin.Instance.Config.ENowSendToDiscord)
