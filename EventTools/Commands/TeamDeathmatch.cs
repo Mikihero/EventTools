@@ -4,6 +4,7 @@ using MEC;
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using Exiled.API.Features.Doors;
 using Exiled.Permissions.Extensions;
 using PlayerRoles;
 

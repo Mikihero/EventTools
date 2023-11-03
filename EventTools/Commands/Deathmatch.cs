@@ -4,6 +4,7 @@ using System.Linq;
 using CommandSystem;
 using Exiled.API.Features;
 using Exiled.API.Enums;
+using Exiled.API.Features.Doors;
 using MEC;
 using Exiled.Permissions.Extensions;
 

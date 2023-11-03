@@ -3,12 +3,11 @@ using System.Linq;
 using CommandSystem;
 using Exiled.API.Enums;
 using Exiled.API.Features;
+using Exiled.API.Features.Doors;
 using Exiled.API.Features.Pickups;
 using Exiled.Permissions.Extensions;
 using LightContainmentZoneDecontamination;
 using PlayerRoles;
-using PlayerRoles.FirstPersonControl;
-using Map = PluginAPI.Core.Map;
 
 namespace EventTools.Commands
 {

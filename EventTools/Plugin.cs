@@ -13,9 +13,9 @@ namespace EventTools
     public class Plugin : Plugin<Config>
     {
         public static Plugin Instance;
-        public override Version RequiredExiledVersion => new Version(6,0,0,0);
-        public override Version Version => new Version(3, 1, 0);
         public override string Author => "Miki_hero";
+        public override Version Version => new Version(4, 0, 0);
+        public override Version RequiredExiledVersion => new Version(8,3,9,0);
 
         private EventHandlers _eventHandlers;
         
