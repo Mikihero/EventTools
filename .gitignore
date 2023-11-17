@@ -3,4 +3,4 @@ obj/
 .vs/
 .idea/
 packges/
-*.sln.DotSettings.asd
+*.sln.DotSettings.*
