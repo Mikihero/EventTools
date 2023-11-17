@@ -1,6 +1,6 @@
 bin/
 obj/
 .vs/
-Properties/
 .idea/
-EventTools.sln.DotSettings.user
+packges/
+.sln.DotSettings.*
